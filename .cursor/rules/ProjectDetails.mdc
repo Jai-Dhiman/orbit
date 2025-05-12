@@ -1,0 +1,104 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+# Orbit: Your Personal AI Assistant
+
+## Vision & Mission
+
+Orbit is a comprehensive personal AI assistant designed to transform how you manage your day-to-day life. By combining intelligent note-taking, schedule management, emotional support, and accountability tools in one seamless experience, Orbit becomes your trusted companion for personal growth and productivity.
+
+Our mission is to create an AI assistant that truly understands you, adapts to your needs, and helps you achieve your goals while maintaining your privacy and security.
+
+## Key Features
+
+### Intelligent Note-Taking
+
+Transform thoughts into organized knowledge with AI-powered note organization, semantic search, and smart connections between related ideas.
+
+### Smart Schedule Management
+
+Effortlessly manage your calendar with natural language processing. Create events, set reminders, and track appointments through conversational interaction.
+
+### Emotional Support & Growth
+
+Receive personalized motivation, emotional check-ins, and progress visualization tailored to your unique personality and communication style.
+
+### Accountability Partner
+
+Stay on track with your goals through adaptive reminders, habit tracking, and gentle nudges that learn from your response patterns.
+
+### Seamless Multi-Platform Experience
+
+Access your personal AI assistant across devices with perfect synchronization and offline capabilities for uninterrupted support.
+
+## Technical Innovation
+
+Orbit leverages cutting-edge technology to deliver a responsive, intelligent, and personalized experience:
+
+### Frontend Experience
+
+- **Lynx Framework**: Delivering superior performance with native components and responsive design
+- **Multi-Threaded Architecture**: Ensuring smooth UI responsiveness by separating user code and framework operations
+- **Tailwind/Shadcn UI**: Beautiful, consistent design system with Lucide icons for visual clarity
+- **Offline-First Design**: Continuous functionality even without network connection
+
+### Intelligent Backend
+
+- **Convex**: Real-time data synchronization with built-in authentication and serverless functions
+- **TanStack Query**: Sophisticated data fetching with automatic caching, background updates, and optimized server state management
+- **LLM Strategy**: Claude Sonnet 3.7 with specialized prompts
+- **Vector Embeddings**: Personalized knowledge graph that grows with usage
+
+### User-Centric State Management
+
+- **Zustand**: Lightweight, performance-focused state management
+- **TanStack Form**: Type-safe, composable form state handling with built-in validation
+- **Adaptive Notifications**: Learning system that optimizes timing and content based on user responsiveness
+
+### Integration Ecosystem
+
+- **Calendar Integration**: Seamless connection with Google Calender
+- **Personalized Workflows**: Custom automation for your most common tasks
+- **Cross-Device Sync**: Consistent experience across all your devices
+
+## Development Roadmap
+
+### Phase 1: Core Experience
+
+Building the fundamental conversational interface, local storage, and basic calendar integration.
+
+### Phase 2: Knowledge Management
+
+Implementing rich text notes, AI organization, and semantic search capabilities.
+
+### Phase 3: Advanced Scheduling
+
+Enhancing calendar features with NLP, goal tracking, and smart notifications.
+
+### Phase 4: Emotional Intelligence
+
+Introducing sentiment analysis, personalized motivation, and progress visualization.
+
+## Privacy & Security
+
+Your personal data deserves the highest level of protection. Orbit implements:
+
+- End-to-end encryption for all personal data
+- LLM calls sanitized of personal identifiers
+- Transparent AI processing with clear user controls
+- No data sharing with third parties
+
+## Why Orbit?
+
+Unlike other AI assistants, Orbit sets itself apart through:
+
+- Deep integration between notes and calendar functions
+- Conversation-first interface for all features
+- Adaptive notification system that learns your preferences
+- Multi-modal input (text, voice) with consistent experience
+- Personal knowledge graph that becomes more valuable over time
+
+Join us on our journey to create the most helpful, personalized AI assistant that respects your privacy while helping you achieve your goals.

@@ -1,0 +1,192 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+# Cursor Rules for Orbit Project frontend
+
+## Code Organization
+
+### File Structure
+
+- `/src` - Main application code
+  - `/features` - Feature-based modules (vertical slicing)
+    - `/notes` - Note-taking feature
+      - `/components` - Feature-specific components
+      - `/api` - API endpoints and data fetching
+      - `/hooks` - Feature-specific hooks
+      - `/types` - Feature-specific types
+      - `/utils` - Feature-specific utility functions
+      - `/stores` - Feature-specific state (Zustand)
+      - `/queries` - Feature-specific queries (TanStack Query)
+      - `index.ts` - Exports public API of this feature
+    - `/calendar` - Calendar management feature
+      - `/components`
+      - `/api`
+      - `/hooks`
+      - etc...
+    - `/auth` - Authentication feature
+    - `/profile` - User profile feature
+  - `/shared` - Shared code used across features
+    - `/components` - Reusable UI components
+    - `/hooks` - General-purpose hooks
+    - `/utils` - Utility functions
+    - `/types` - Common type definitions
+  - `/lib` - Third-party library wrappers
+    - `api.ts` - API client setup
+    - `zustand.ts` - Zustand store utilities
+    - `query.ts` - TanStack Query setup
+  - `/providers` - Context providers
+  - `/config` - App-wide configuration
+  - `/assets` - Static assets
+  - `/styles` - Global styling (Tailwind configuration)
+
+### Naming Conventions
+
+- Components: PascalCase (e.g., `CalendarWidget.tsx`)
+- Hooks: camelCase with 'use' prefix (e.g., `useNotifications.ts`)
+- Utilities: camelCase (e.g., `formatDateTime.ts`)
+- Store files: camelCase with 'store' suffix (e.g., `notificationStore.ts`)
+- Query files: camelCase with 'queries' suffix (e.g., `calendarQueries.ts`)
+
+## Package Management with Bun
+
+- Use Bun as the preferred package manager
+- Run `bun install` to install dependencies
+- Manage scripts via `bun run [script]` as defined in package.json
+- Use `bun.lockb` for deterministic builds
+- Leverage Bun's built-in TypeScript support and bundling capabilities
+- When adding new dependencies, use `bun add [package]` (or `bun add -d [package]` for dev dependencies)
+- For global installations, use `bun add -g [package]`
+
+## Styling with Tailwind CSS and Shadcn UI
+
+### Tailwind CSS
+
+- Use Tailwind utility classes for styling components
+- Follow mobile-first approach for responsive design
+- Use `clsx` or `cn` utility for conditional class names
+- Extract common utility patterns to components instead of using `@apply`
+- Configure theme tokens in `tailwind.config.js`
+- Use CSS variables for dynamic theming
+
+### Shadcn UI
+
+- Import components selectively to minimize bundle size
+- Customize appearance through the Tailwind theme configuration
+- Use the components as a foundation, extending them when needed
+- Maintain accessibility standards when customizing components
+- Leverage component variants for consistent styling
+
+## Testing with Vitest
+
+### Setup
+
+- All tests should be located next to the files they test with `.test.ts` or `.test.tsx` extension
+- Use the React Testing Library with Vitest for component testing
+- Configure test environment in `vitest.config.ts`
+
+### Test Structure
+
+- Group related tests with descriptive `describe` blocks
+- Use clear, action-oriented test names with `it` or `test`
+- Follow the AAA pattern: Arrange, Act, Assert
+- Test components in isolation with appropriate mocks
+
+### Best Practices
+
+- Focus on testing behavior, not implementation details
+- Use `screen` queries and user-event for interaction testing
+- Write tests that resemble how users interact with your app
+- Implement proper cleanup between tests
+
+### Component Testing
+
+- Test different component states (loading, error, success)
+- Verify proper rendering of UI elements
+- Test interactions and state changes
+- Validate accessibility concerns
+
+## State Management with Zustand
+
+### Store Structure
+
+- Create separate stores for different features (vertical slicing)
+- Keep state minimal and normalized
+- Define actions within the store
+- Implement proper TypeScript typing for stores
+
+### Usage Patterns
+
+- Use selectors to access specific state slices
+- Avoid unnecessary re-renders by selecting only needed data
+- Implement middleware for side effects or persistence
+- Store only client state in Zustand; server state should be in TanStack Query
+
+## TanStack Query Best Practices
+
+### Setup and Configuration
+
+- Define a central queryClient with appropriate defaults for all applications
+- Use proper staleTime and cacheTime settings based on data volatility
+- Implement global error handling in queryClient configuration
+- Configure retries appropriately based on API reliability
+
+### Query Structure
+
+- Create custom hooks for each query to encapsulate query logic
+- Use prefetching for anticipated data needs
+- Implement appropriate query keys with proper structure (array format)
+- Enable suspense mode for React 18+ applications
+
+### Data Management
+
+- Implement optimistic updates for mutations when appropriate
+- Use query invalidation strategically to maintain data freshness
+- Leverage onSuccess/onError callbacks for side effects
+- Implement appropriate pagination or infinite scroll techniques
+
+### Performance Optimization
+
+- Select only the data you need from query results
+- Use enabled option to conditionally execute queries
+- Implement proper query key factories for parameterized queries
+- Set up proper query deduplication
+
+### Usage Patterns
+
+- Separate server state (TanStack Query) from client state (Zustand)
+- Implement proper loading and error states for all queries
+- Use placeholderData or initialData for improved UX
+- Leverage query cancellation for abandoned requests
+
+## TanStack Form Best Practices
+
+### Form Setup
+
+- Create reusable form configurations with consistent validation
+- Leverage schema-based validation (Zod) integrated with TanStack Form
+- Implement proper TypeScript types for form values and errors
+- Use fieldArrays for dynamic form sections
+
+### Error Handling
+
+- Implement field-level, form-level, and submission error handling
+- Display errors in accessible, user-friendly ways
+- Provide clear error messages with resolution guidance
+- Implement proper focus management for invalid fields
+
+### Performance
+
+- Use controlled components sparingly to minimize re-renders
+- Implement efficient validation strategies (validateOnBlur vs validateOnChange)
+- Leverage shouldUseNativeValidation where appropriate
+- Use fieldState effectively to optimize render performance
+
+### User Experience
+
+- Implement proper loading states during form submission
+- Use proper disabled states for fields during processing
+- Maintain form state during navigation when appropriate
+- Provide clear success/error feedback after submission
