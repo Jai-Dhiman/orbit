@@ -1,4 +1,4 @@
-# Orbit: Your Personal AI Assistant
+# Orbit - Your Personal AI Assistant
 
 ## Overview
 
@@ -44,9 +44,9 @@ Orbit is a comprehensive personal AI assistant designed to transform how you man
 
 ### Frontend
 
-- Lynx Framework for native components and performance
-- Multi-threaded architecture for optimal UI responsiveness
-- Tailwind CSS and Shadcn UI for beautiful, consistent design
+- **Mobile**: Lynx Framework for native-like components and performance
+- **Web**: Vite + React Router for fast, optimized CSR experience
+- **Shared UI**: Tailwind CSS and Shadcn UI for beautiful, consistent design
 
 ### Backend
 
@@ -61,32 +61,64 @@ Orbit is a comprehensive personal AI assistant designed to transform how you man
 - TanStack Form for type-safe form handling
 - Adaptive notification system
 
-## Getting Started
+## Monorepo Structure
+
+This project uses a monorepo architecture to share code between web and mobile platforms:
+
+- `/packages/core` - Shared business logic
+- `/packages/ui` - Shared UI components
+- `/apps/web` - Web application (Vite + React Router)
+- `/apps/mobile` - Mobile application (Lynx)
+- `/apps/server` - Backend server (Convex)
+
+## Development
 
 ### Prerequisites
 
 - Node.js 18 or higher
-- Bun package manager
+- [Bun](https://bun.sh/) package manager
 
 ### Installation
 
-1. Clone the repository
+```bash
+bun install
+```
 
-   ```
-   git clone https://github.com/Jai-Dhiman/orbit.git
-   cd orbit
-   ```
+### Running the applications
 
-2. Install dependencies
+To run all applications:
 
-   ```
-   bun install
-   ```
+```bash
+bun run dev
+```
 
-3. Start the development server
-   ```
-   bun run dev
-   ```
+To run specific applications:
+
+```bash
+# Web app only (Vite + React Router)
+bun run dev:web
+
+# Mobile app only (Lynx)
+bun run dev:mobile
+```
+
+### Mobile Development
+
+When running the mobile app, scan the QR code with the Lynx Explorer App to see the mobile version on your device.
+
+### Web Development
+
+The web app is available at http://localhost:3000 when running. The web version uses:
+
+- **Vite** - For lightning-fast development and optimized production builds
+- **React Router** - For intuitive navigation and routing
+- **Client-Side Rendering** - Optimized for authenticated user experiences
+
+## Building for Production
+
+```bash
+bun run build
+```
 
 ## Project Structure
 

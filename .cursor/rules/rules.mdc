@@ -1,46 +1,93 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: true
 ---
-
 # Cursor Rules for Orbit Project frontend
 
-## Code Organization
+## Monorepo Architecture
 
-### File Structure
+### Project and File Structure
 
-- `/src` - Main application code
-  - `/features` - Feature-based modules (vertical slicing)
-    - `/notes` - Note-taking feature
-      - `/components` - Feature-specific components
-      - `/api` - API endpoints and data fetching
-      - `/hooks` - Feature-specific hooks
-      - `/types` - Feature-specific types
-      - `/utils` - Feature-specific utility functions
-      - `/stores` - Feature-specific state (Zustand)
-      - `/queries` - Feature-specific queries (TanStack Query)
-      - `index.ts` - Exports public API of this feature
-    - `/calendar` - Calendar management feature
-      - `/components`
-      - `/api`
-      - `/hooks`
-      - etc...
-    - `/auth` - Authentication feature
-    - `/profile` - User profile feature
-  - `/shared` - Shared code used across features
-    - `/components` - Reusable UI components
-    - `/hooks` - General-purpose hooks
-    - `/utils` - Utility functions
-    - `/types` - Common type definitions
-  - `/lib` - Third-party library wrappers
-    - `api.ts` - API client setup
-    - `zustand.ts` - Zustand store utilities
-    - `query.ts` - TanStack Query setup
-  - `/providers` - Context providers
-  - `/config` - App-wide configuration
-  - `/assets` - Static assets
-  - `/styles` - Global styling (Tailwind configuration)
+- `/packages` - Shared code packages
+  - `/core` - Shared business logic
+    - `/api` - API abstractions and service functions
+    - `/types` - Shared type definitions 
+    - `/utils` - Utility functions used across platforms
+    - `/hooks` - Shared custom hooks
+    - `/state` - Cross-platform state management
+  - `/ui` - Shared UI components
+    - `/components` - Cross-platform UI components
+    - `/styles` - Shared styles and themes
+    - `/assets` - Shared images and icons
+
+- `/apps` - Platform-specific applications
+  - `/mobile` - Mobile application (Lynx)
+    - `/src` - Mobile app source code
+      - `/features` - Feature modules (vertical slicing)
+        - `/notes` - Note-taking feature
+          - `/components` - Feature-specific components
+          - `/api` - Feature-specific API calls
+          - `/hooks` - Feature-specific hooks
+          - `/types` - Feature-specific types
+          - `/utils` - Feature-specific utilities
+          - `/stores` - Feature-specific state
+          - `index.ts` - Public exports
+        - `/calendar` - Calendar management
+        - `/auth` - Authentication 
+        - `/profile` - User profile
+      - `/navigation` - Mobile-specific navigation
+      - `/platform` - Mobile-specific implementations
+      - `/shared` - App-level shared code
+      - `/lib` - Third-party library wrappers
+      - `/providers` - Context providers
+      - `/config` - Configuration
+      - `/assets` - Static assets
+  - `/web` - Web application (Vite + React Router)
+    - `/src` - Web app source code
+      - `/features` - Feature modules (same structure as mobile)
+      - `/routes` - Route components and definitions
+        - `/index.tsx` - Root route component
+        - `/_layout.tsx` - Layout wrapper for routes
+        - `/auth/` - Auth-related routes
+        - `/notes/` - Notes-related routes
+      - `/components` - Shared web components
+      - `/hooks` - Web-specific hooks
+      - `/utils` - Web-specific utilities
+      - `/constants` - App constants
+      - `/assets` - Static assets
+      - `/styles` - Global styles
+      - `main.tsx` - Application entry point
+      - `App.tsx` - Main App component with routing setup
+      - `vite-env.d.ts` - Vite type declarations
+  - `/server` - Shared backend
+    - `/convex` - Convex backend code
+      - `/schema` - Database schema
+      - `/functions` - Server functions
+      - `/auth` - Authentication logic
+
+### Platform Integration Strategy
+
+- **Code Sharing:**
+  - Core business logic, API calls, and utilities in `/packages/core`
+  - Shared UI components in `/packages/ui`
+  - Platform-specific code in respective app directories
+
+- **Web Architecture (Vite + React Router):**
+  - Client-side rendering (CSR) approach for authenticated app experience
+  - React Router for navigation and route management
+  - Vite for fast development and optimized builds
+  - Integration with shared core packages
+
+- **Mobile Architecture (Lynx):**
+  - Lynx Framework for native-like mobile experience
+  - Platform-specific UI implementations
+  - Shared business logic from core packages
+
+- **Backend Integration:**
+  - Convex backend shared between web and mobile
+  - Use same API abstractions from core package
+  - TanStack Query for data fetching in both platforms
 
 ### Naming Conventions
 
@@ -49,6 +96,7 @@ alwaysApply: true
 - Utilities: camelCase (e.g., `formatDateTime.ts`)
 - Store files: camelCase with 'store' suffix (e.g., `notificationStore.ts`)
 - Query files: camelCase with 'queries' suffix (e.g., `calendarQueries.ts`)
+- Route files: kebab-case (e.g., `user-profile.tsx`) or descriptive names in directories
 
 ## Package Management with Bun
 
@@ -59,6 +107,22 @@ alwaysApply: true
 - Leverage Bun's built-in TypeScript support and bundling capabilities
 - When adding new dependencies, use `bun add [package]` (or `bun add -d [package]` for dev dependencies)
 - For global installations, use `bun add -g [package]`
+
+## Vite Configuration
+
+- Use `vite.config.ts` for Vite-specific configurations
+- Configure path aliases to match monorepo structure
+- Set up environment variables with `.env` files
+- Configure build optimizations for production
+- Use Vite plugins as needed (e.g., `@vitejs/plugin-react`)
+
+## React Router Configuration
+
+- Use React Router v6+ with data loading APIs
+- Implement route-based code splitting for performance
+- Structure routes hierarchically with nested layouts
+- Use route loaders for data fetching when appropriate
+- Implement type-safe routing with proper typing
 
 ## Styling with Tailwind CSS and Shadcn UI
 

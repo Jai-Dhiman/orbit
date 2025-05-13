@@ -25,3 +25,6 @@ dist
 # Misc
 .DS_Store
 *.pem
+*.local
+*.log*
+

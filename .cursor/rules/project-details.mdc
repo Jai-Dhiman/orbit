@@ -1,9 +1,8 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: true
 ---
-
 # Orbit: Your Personal AI Assistant
 
 ## Vision & Mission
@@ -38,12 +37,19 @@ Access your personal AI assistant across devices with perfect synchronization an
 
 Orbit leverages cutting-edge technology to deliver a responsive, intelligent, and personalized experience:
 
+### Cross-Platform Architecture
+
+- **Monorepo Structure**: Unified codebase that shares business logic across web and mobile platforms
+- **Lynx Framework**: Cross-platform UI framework delivering superior performance with native components
+- **Responsive Design**: Adaptive UI that intelligently adjusts to different screen sizes and platforms
+- **Offline-First Design**: Continuous functionality even without network connection
+
 ### Frontend Experience
 
-- **Lynx Framework**: Delivering superior performance with native components and responsive design
+- **Web Platform**: Optimized web experience that loads and renders efficiently in browsers
+- **Mobile Platform**: Native-feeling mobile experience for iOS and Android
 - **Multi-Threaded Architecture**: Ensuring smooth UI responsiveness by separating user code and framework operations
 - **Tailwind/Shadcn UI**: Beautiful, consistent design system with Lucide icons for visual clarity
-- **Offline-First Design**: Continuous functionality even without network connection
 
 ### Intelligent Backend
 
