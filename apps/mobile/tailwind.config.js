@@ -12,6 +12,17 @@ module.exports = {
   presets: [require('nativewind/preset')],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['WorkSans-Regular'],
+        'sans-thin': ['WorkSans-Thin'],
+        'sans-extralight': ['WorkSans-ExtraLight'],
+        'sans-light': ['WorkSans-Light'],
+        'sans-medium': ['WorkSans-Medium'],
+        'sans-semibold': ['WorkSans-SemiBold'],
+        'sans-bold': ['WorkSans-Bold'],
+        'sans-extrabold': ['WorkSans-ExtraBold'],
+        'sans-black': ['WorkSans-Black'],
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -21,10 +32,12 @@ module.exports = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
+          solid: '#1E2A45',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
+          solid: '#35B6B4',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
@@ -33,10 +46,12 @@ module.exports = {
         muted: {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))',
+          solid: '#F5F7FA',
         },
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
+          solid: '#FF6B6B',
         },
         popover: {
           DEFAULT: 'hsl(var(--popover))',
@@ -45,6 +60,11 @@ module.exports = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
+        },
+        neutral: {
+          white: '#FFFFFF',
+          light: '#F5F7FA',
+          gray: '#DDE2E5',
         },
       },
       borderWidth: {

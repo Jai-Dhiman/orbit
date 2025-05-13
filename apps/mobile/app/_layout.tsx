@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { View } from 'react-native';
 import { Home, FileText } from 'lucide-react-native';
 import '../global.css';
-import { ConvexProvider } from '../src/providers';
+import { ConvexProvider, FontProvider } from '../src/providers';
 
 interface TabBarIconProps {
   name: string;
@@ -25,31 +25,33 @@ const TabBarIcon = ({ name, focused }: TabBarIconProps): React.JSX.Element => {
 
 export default function Layout(): JSX.Element {
   return (
-    <ConvexProvider>
-      <StatusBar style="auto" />
-      <Tabs
-        screenOptions={{
-          tabBarActiveTintColor: '#3b82f6',
-          tabBarInactiveTintColor: '#64748b',
-        }}
-      >
-        <Tabs.Screen
-          name="index"
-          options={{
-            title: 'Home',
-            tabBarLabel: 'Home',
-            tabBarIcon: ({ focused }) => <TabBarIcon name="index" focused={focused} />,
+    <FontProvider>
+      <ConvexProvider>
+        <StatusBar style="auto" />
+        <Tabs
+          screenOptions={{
+            tabBarActiveTintColor: '#3b82f6',
+            tabBarInactiveTintColor: '#64748b',
           }}
-        />
-        <Tabs.Screen
-          name="profile"
-          options={{
-            title: 'Page 2',
-            tabBarLabel: 'Page 2',
-            tabBarIcon: ({ focused }) => <TabBarIcon name="profile" focused={focused} />,
-          }}
-        />
-      </Tabs>
-    </ConvexProvider>
+        >
+          <Tabs.Screen
+            name="index"
+            options={{
+              title: 'Home',
+              tabBarLabel: 'Home',
+              tabBarIcon: ({ focused }) => <TabBarIcon name="index" focused={focused} />,
+            }}
+          />
+          <Tabs.Screen
+            name="profile"
+            options={{
+              title: 'Page 2',
+              tabBarLabel: 'Page 2',
+              tabBarIcon: ({ focused }) => <TabBarIcon name="profile" focused={focused} />,
+            }}
+          />
+        </Tabs>
+      </ConvexProvider>
+    </FontProvider>
   );
 } 
