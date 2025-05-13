@@ -32,12 +32,12 @@ module.exports = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
-          solid: '#1E2A45',
+          solid: '#7D6E83',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
-          solid: '#35B6B4',
+          solid: '#94B49F',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
@@ -46,12 +46,12 @@ module.exports = {
         muted: {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))',
-          solid: '#F5F7FA',
+          solid: '#F1EDE4',
         },
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
-          solid: '#FF6B6B',
+          solid: '#D7A86E',
         },
         popover: {
           DEFAULT: 'hsl(var(--popover))',
@@ -62,9 +62,37 @@ module.exports = {
           foreground: 'hsl(var(--card-foreground))',
         },
         neutral: {
-          white: '#FFFFFF',
-          light: '#F5F7FA',
-          gray: '#DDE2E5',
+          white: '#FFFCF5',
+          light: '#F9F7F2',
+          gray: '#E8E2D6',
+        },
+        rustic: {
+          // Light mode colors
+          background: '#F9F7F2',
+          surface: '#FFFCF5',
+          textPrimary: '#4A4238',
+          textSecondary: '#7D7468',
+          border: '#E8E2D6',
+          muted: '#F1EDE4',
+          
+          // Dark mode colors
+          darkBackground: '#2C2922',
+          darkSurface: '#35312A',
+          darkPrimary: '#A99F92',
+          darkSecondary: '#A7BC9F',
+          darkAccent: '#C89F65',
+          darkTextPrimary: '#E8E2D6',
+          darkTextSecondary: '#BDB5A7',
+          darkBorder: '#4F4A40',
+          darkMuted: '#403B33',
+          
+          // Utility colors
+          success: '#B5C9A5',
+          darkSuccess: '#8DAB80',
+          warning: '#E6C99A',
+          darkWarning: '#D4B483',
+          error: '#D9A295',
+          darkError: '#C47C6D',
         },
       },
       borderWidth: {
