@@ -2,7 +2,7 @@ import type React from 'react';
 import { Tabs } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { View } from 'react-native';
-import { Home, FileText } from 'lucide-react-native';
+import { Home, FileText, Calendar } from 'lucide-react-native';
 import '../global.css';
 import { ConvexProvider, FontProvider } from '../src/providers';
 
@@ -16,8 +16,10 @@ const TabBarIcon = ({ name, focused }: TabBarIconProps): React.JSX.Element => {
     <View className={`items-center justify-center ${focused ? 'opacity-100' : 'opacity-60'}`}>
       {name === 'index' ? (
         <Home size={24} color={focused ? '#3b82f6' : '#64748b'} />
-      ) : (
+      ) : name === 'notes' ? (
         <FileText size={24} color={focused ? '#3b82f6' : '#64748b'} />
+      ) : (
+        <Calendar size={24} color={focused ? '#3b82f6' : '#64748b'} />
       )}
     </View>
   );
@@ -43,10 +45,19 @@ export default function Layout(): JSX.Element {
             }}
           />
           <Tabs.Screen
+            name="notes"
+            options={{
+              title: 'Notes',
+              tabBarLabel: 'Notes',
+              tabBarIcon: ({ focused }) => <TabBarIcon name="notes" focused={focused} />,
+              headerShown: false,
+            }}
+          />
+          <Tabs.Screen
             name="profile"
             options={{
-              title: 'Page 2',
-              tabBarLabel: 'Page 2',
+              title: 'Calendar',
+              tabBarLabel: 'Calendar',
               tabBarIcon: ({ focused }) => <TabBarIcon name="profile" focused={focused} />,
             }}
           />
