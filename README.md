@@ -1,145 +1,94 @@
-# Orbit - Your Personal AI Assistant
 
-## Overview
+# Orbit: Your Personal AI Assistant
+
+## Vision & Mission
 
 Orbit is a comprehensive personal AI assistant designed to transform how you manage your day-to-day life. By combining intelligent note-taking, schedule management, emotional support, and accountability tools in one seamless experience, Orbit becomes your trusted companion for personal growth and productivity.
 
-## Features
+Our mission is to create an AI assistant that truly understands you, adapts to your needs, and helps you achieve your goals while maintaining your privacy and security.
 
-### Intelligent Note-Taking
+## Key Features
 
-- AI-powered note organization
-- Semantic search capabilities
-- Smart connections between related ideas
-- Rich text editing
+- **Intelligent Note-Taking**: Transform thoughts into organized knowledge with AI-powered organization and semantic search
+- **Smart Schedule Management**: Effortlessly manage your calendar with natural language processing
+- **Emotional Support & Growth**: Receive personalized motivation and progress visualization
+- **Accountability Partner**: Stay on track with your goals through adaptive reminders and habit tracking
+- **Seamless Experience**: Access your personal AI assistant across devices with perfect synchronization
 
-### Smart Schedule Management
-
-- Natural language calendar management
-- Event creation and reminders
-- Appointment tracking through conversation
-- Google Calendar integration
-
-### Emotional Support & Growth
-
-- Personalized motivation
-- Emotional check-ins
-- Progress visualization
-- Adaptive feedback based on your communication style
-
-### Accountability Partner
-
-- Adaptive reminder system
-- Habit tracking
-- Goal management
-- Response pattern learning
-
-### Seamless Multi-Platform Experience
-
-- Cross-device synchronization
-- Offline capabilities
-- Consistent UI/UX across platforms
-
-## Tech Stack
+## Technology Stack
 
 ### Frontend
-
-- **Mobile**: Lynx Framework for native-like components and performance
-- **Web**: Vite + React Router for fast, optimized CSR experience
-- **Shared UI**: Tailwind CSS and Shadcn UI for beautiful, consistent design
-
-### Backend
-
-- Convex for real-time data synchronization
-- Built-in authentication and serverless functions
-- TanStack Query for sophisticated data fetching
-- Vector embeddings for personalized knowledge graphs
+- **React Native & Expo**: Cross-platform mobile development
+- **Expo Router**: File-system based navigation
+- **NativeWind**: Tailwind CSS for React Native
+- **Shadcn UI**: Customizable component library
+- **Lucide Icons**: Beautiful, consistent iconography
+- **Moti**: Declarative animations
 
 ### State Management
+- **Zustand**: Lightweight state management
+- **MMKV**: High-performance local storage
+- **TanStack Query**: Data fetching and synchronization
+- **TanStack Form**: Type-safe form handling
 
-- Zustand for lightweight, performance-focused state management
-- TanStack Form for type-safe form handling
-- Adaptive notification system
+### Backend
+- **Convex**: Real-time data synchronization with built-in authentication
+- **Vector Embeddings**: Personalized knowledge graph
+- **Claude 3.7 Sonnet**: Advanced language model integration
 
-## Monorepo Structure
-
-This project uses a monorepo architecture to share code between web and mobile platforms:
-
-- `/packages/core` - Shared business logic
-- `/packages/ui` - Shared UI components
-- `/apps/web` - Web application (Vite + React Router)
-- `/apps/mobile` - Mobile application (Lynx)
-- `/apps/server` - Backend server (Convex)
-
-## Development
+## Getting Started
 
 ### Prerequisites
-
-- Node.js 18 or higher
-- [Bun](https://bun.sh/) package manager
+- Node.js 18+ and Bun
+- iOS Simulator or Android Emulator
 
 ### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/Jai-Dhiman/orbit.git
+cd orbit
+
+# Install dependencies
 bun install
-```
 
-### Running the applications
-
-To run all applications:
-
-```bash
+# Start the development server
 bun run dev
 ```
 
-To run specific applications:
+### Environment Setup
 
-```bash
-# Web app only (Vite + React Router)
-bun run dev:web
+Create a `.env` file in the root directory:
 
-# Mobile app only (Lynx)
-bun run dev:mobile
 ```
-
-### Mobile Development
-
-When running the mobile app, scan the QR code with the Lynx Explorer App to see the mobile version on your device.
-
-### Web Development
-
-The web app is available at http://localhost:3000 when running. The web version uses:
-
-- **Vite** - For lightning-fast development and optimized production builds
-- **React Router** - For intuitive navigation and routing
-- **Client-Side Rendering** - Optimized for authenticated user experiences
-
-## Building for Production
-
-```bash
-bun run build
+CONVEX_DEPLOYMENT=your-convex-deployment-url
+CLAUDE_API_KEY=your-claude-api-key
 ```
 
 ## Project Structure
 
-The project is organized as a monorepo using Turborepo:
+```
+orbit/
+├── packages/          # Shared code packages
+│   ├── core/          # Business logic
+│   └── ui/            # UI components
+├── apps/
+│   ├── mobile/        # Expo React Native app
+│   │   ├── app/       # Expo Router directory
+│   │   └── src/       # Application source code
+│   └── server/        # Backend services
+└── README.md          # You are here
+```
 
-- `apps/mobile` - React Native mobile application
-- `apps/convex` - Convex backend and serverless functions
+## Development Workflow
+
+- **Development**: `bun run dev` (starts Expo dev server)
+- **Build**: `bun run build` (builds production-ready app)
+- **Deploy**: `bun run deploy` (deploys to EAS)
 
 ## Privacy & Security
 
-Orbit prioritizes user privacy with:
-
-- End-to-end encryption for personal data
+Orbit implements:
+- End-to-end encryption for all personal data
 - LLM calls sanitized of personal identifiers
-- Transparent AI processing
-- No third-party data sharing
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## Contact
-
-For questions or feedback, please reach out to jaidhiman2000@gmail.com.
+- No data sharing with third parties

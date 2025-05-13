@@ -3,7 +3,7 @@ description:
 globs: 
 alwaysApply: true
 ---
-# Cursor Rules for Orbit Project frontend
+# Cursor Rules for Orbit Project
 
 ## Monorepo Architecture
 
@@ -22,7 +22,14 @@ alwaysApply: true
     - `/assets` - Shared images and icons
 
 - `/apps` - Platform-specific applications
-  - `/mobile` - Mobile application (Lynx)
+  - `/mobile` - Mobile application (Expo)
+    - `/app` - Expo Router directory
+      - `/[...unmatched].tsx` - 404 handler
+      - `/_layout.tsx` - Root layout
+      - `/index.tsx` - Home screen
+      - `/notes/` - Notes routes
+      - `/calendar/` - Calendar routes
+      - `/auth/` - Auth routes
     - `/src` - Mobile app source code
       - `/features` - Feature modules (vertical slicing)
         - `/notes` - Note-taking feature
@@ -36,58 +43,24 @@ alwaysApply: true
         - `/calendar` - Calendar management
         - `/auth` - Authentication 
         - `/profile` - User profile
-      - `/navigation` - Mobile-specific navigation
-      - `/platform` - Mobile-specific implementations
-      - `/shared` - App-level shared code
-      - `/lib` - Third-party library wrappers
+      - `/components` - Shared app components
       - `/providers` - Context providers
-      - `/config` - Configuration
-      - `/assets` - Static assets
-  - `/web` - Web application (Vite + React Router)
-    - `/src` - Web app source code
-      - `/features` - Feature modules (same structure as mobile)
-      - `/routes` - Route components and definitions
-        - `/index.tsx` - Root route component
-        - `/_layout.tsx` - Layout wrapper for routes
-        - `/auth/` - Auth-related routes
-        - `/notes/` - Notes-related routes
-      - `/components` - Shared web components
-      - `/hooks` - Web-specific hooks
-      - `/utils` - Web-specific utilities
+      - `/utils` - Utility functions
       - `/constants` - App constants
+      - `/lib` - Third-party library wrappers
       - `/assets` - Static assets
-      - `/styles` - Global styles
-      - `main.tsx` - Application entry point
-      - `App.tsx` - Main App component with routing setup
-      - `vite-env.d.ts` - Vite type declarations
   - `/server` - Shared backend
     - `/convex` - Convex backend code
       - `/schema` - Database schema
       - `/functions` - Server functions
       - `/auth` - Authentication logic
 
-### Platform Integration Strategy
+### Code Sharing Strategy
 
-- **Code Sharing:**
-  - Core business logic, API calls, and utilities in `/packages/core`
-  - Shared UI components in `/packages/ui`
-  - Platform-specific code in respective app directories
-
-- **Web Architecture (Vite + React Router):**
-  - Client-side rendering (CSR) approach for authenticated app experience
-  - React Router for navigation and route management
-  - Vite for fast development and optimized builds
-  - Integration with shared core packages
-
-- **Mobile Architecture (Lynx):**
-  - Lynx Framework for native-like mobile experience
-  - Platform-specific UI implementations
-  - Shared business logic from core packages
-
-- **Backend Integration:**
-  - Convex backend shared between web and mobile
-  - Use same API abstractions from core package
-  - TanStack Query for data fetching in both platforms
+- Core business logic, API calls, and utilities in `/packages/core`
+- Shared UI components in `/packages/ui`
+- Platform-specific code in respective app directories
+- Convex backend shared across all platforms
 
 ### Naming Conventions
 
@@ -96,7 +69,7 @@ alwaysApply: true
 - Utilities: camelCase (e.g., `formatDateTime.ts`)
 - Store files: camelCase with 'store' suffix (e.g., `notificationStore.ts`)
 - Query files: camelCase with 'queries' suffix (e.g., `calendarQueries.ts`)
-- Route files: kebab-case (e.g., `user-profile.tsx`) or descriptive names in directories
+- Route files: kebab-case or descriptive names in directories
 
 ## Package Management with Bun
 
@@ -104,82 +77,34 @@ alwaysApply: true
 - Run `bun install` to install dependencies
 - Manage scripts via `bun run [script]` as defined in package.json
 - Use `bun.lockb` for deterministic builds
-- Leverage Bun's built-in TypeScript support and bundling capabilities
 - When adding new dependencies, use `bun add [package]` (or `bun add -d [package]` for dev dependencies)
-- For global installations, use `bun add -g [package]`
 
-## Vite Configuration
+## Styling with NativeWind and Shadcn UI
 
-- Use `vite.config.ts` for Vite-specific configurations
-- Configure path aliases to match monorepo structure
-- Set up environment variables with `.env` files
-- Configure build optimizations for production
-- Use Vite plugins as needed (e.g., `@vitejs/plugin-react`)
-
-## React Router Configuration
-
-- Use React Router v6+ with data loading APIs
-- Implement route-based code splitting for performance
-- Structure routes hierarchically with nested layouts
-- Use route loaders for data fetching when appropriate
-- Implement type-safe routing with proper typing
-
-## Styling with Tailwind CSS and Shadcn UI
-
-### Tailwind CSS
+### NativeWind (Tailwind for React Native)
 
 - Use Tailwind utility classes for styling components
 - Follow mobile-first approach for responsive design
 - Use `clsx` or `cn` utility for conditional class names
-- Extract common utility patterns to components instead of using `@apply`
 - Configure theme tokens in `tailwind.config.js`
 - Use CSS variables for dynamic theming
 
-### Shadcn UI
+### Shadcn UI (react-native-reusables)
 
-- Import components selectively to minimize bundle size
+- Use Shadcn components adapted for React Native through nativecn
 - Customize appearance through the Tailwind theme configuration
-- Use the components as a foundation, extending them when needed
 - Maintain accessibility standards when customizing components
-- Leverage component variants for consistent styling
+- Use Lucide icons consistently throughout the app
 
-## Testing with Vitest
+## State Management with Zustand and MMKV
 
-### Setup
-
-- All tests should be located next to the files they test with `.test.ts` or `.test.tsx` extension
-- Use the React Testing Library with Vitest for component testing
-- Configure test environment in `vitest.config.ts`
-
-### Test Structure
-
-- Group related tests with descriptive `describe` blocks
-- Use clear, action-oriented test names with `it` or `test`
-- Follow the AAA pattern: Arrange, Act, Assert
-- Test components in isolation with appropriate mocks
-
-### Best Practices
-
-- Focus on testing behavior, not implementation details
-- Use `screen` queries and user-event for interaction testing
-- Write tests that resemble how users interact with your app
-- Implement proper cleanup between tests
-
-### Component Testing
-
-- Test different component states (loading, error, success)
-- Verify proper rendering of UI elements
-- Test interactions and state changes
-- Validate accessibility concerns
-
-## State Management with Zustand
-
-### Store Structure
+### Zustand Store Structure
 
 - Create separate stores for different features (vertical slicing)
 - Keep state minimal and normalized
 - Define actions within the store
 - Implement proper TypeScript typing for stores
+- Use MMKV as persistence layer for Zustand
 
 ### Usage Patterns
 
@@ -190,67 +115,17 @@ alwaysApply: true
 
 ## TanStack Query Best Practices
 
-### Setup and Configuration
-
-- Define a central queryClient with appropriate defaults for all applications
-- Use proper staleTime and cacheTime settings based on data volatility
-- Implement global error handling in queryClient configuration
-- Configure retries appropriately based on API reliability
-
-### Query Structure
-
 - Create custom hooks for each query to encapsulate query logic
 - Use prefetching for anticipated data needs
-- Implement appropriate query keys with proper structure (array format)
-- Enable suspense mode for React 18+ applications
-
-### Data Management
-
+- Implement appropriate query keys with proper structure
 - Implement optimistic updates for mutations when appropriate
 - Use query invalidation strategically to maintain data freshness
-- Leverage onSuccess/onError callbacks for side effects
-- Implement appropriate pagination or infinite scroll techniques
-
-### Performance Optimization
-
-- Select only the data you need from query results
-- Use enabled option to conditionally execute queries
-- Implement proper query key factories for parameterized queries
-- Set up proper query deduplication
-
-### Usage Patterns
-
 - Separate server state (TanStack Query) from client state (Zustand)
-- Implement proper loading and error states for all queries
-- Use placeholderData or initialData for improved UX
-- Leverage query cancellation for abandoned requests
 
 ## TanStack Form Best Practices
 
-### Form Setup
-
 - Create reusable form configurations with consistent validation
 - Leverage schema-based validation (Zod) integrated with TanStack Form
-- Implement proper TypeScript types for form values and errors
-- Use fieldArrays for dynamic form sections
-
-### Error Handling
-
+- Implement proper TypeScript typing for form values and errors
 - Implement field-level, form-level, and submission error handling
 - Display errors in accessible, user-friendly ways
-- Provide clear error messages with resolution guidance
-- Implement proper focus management for invalid fields
-
-### Performance
-
-- Use controlled components sparingly to minimize re-renders
-- Implement efficient validation strategies (validateOnBlur vs validateOnChange)
-- Leverage shouldUseNativeValidation where appropriate
-- Use fieldState effectively to optimize render performance
-
-### User Experience
-
-- Implement proper loading states during form submission
-- Use proper disabled states for fields during processing
-- Maintain form state during navigation when appropriate
-- Provide clear success/error feedback after submission

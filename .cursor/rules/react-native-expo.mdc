@@ -1,0 +1,89 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# React Native and Expo Best Practices
+
+## Expo Framework
+
+### Setup and Configuration
+
+- Use Expo SDK for simplified React Native development
+- Configure `app.json` for app metadata, permissions, and capabilities
+- Use `.env` files with `expo-constants` for environment variables
+
+### Expo Router
+
+- Use the file-system based routing in the `/app` directory
+- Create dynamic routes with `[param].tsx` naming convention
+- Define layouts with `_layout.tsx` files
+- Use `Link` component from `expo-router` for navigation
+- Implement deep linking via `expo-linking` configuration
+- Use `Tabs`, `Stack`, and `Drawer` navigation patterns from Expo Router
+
+### EAS Build
+
+- Configure EAS with `eas.json` in project root
+- Set up different build profiles (development, preview, production)
+- Use `eas build` commands for creating native builds
+- Enable EAS Update for over-the-air updates
+- Set up EAS Submit for app store submissions
+- Run `eas build:configure` to generate native project files when needed
+
+## React Native Best Practices
+
+### Performance Optimization
+
+- Use `memo` for expensive components that rarely change
+- Implement `useCallback` for functions passed as props
+- Leverage `useMemo` for expensive calculations
+- Use `FlashList` instead of `FlatList` for long lists
+- Minimize JS-to-native bridge calls
+- Use Hermes JavaScript engine (enabled by default in Expo)
+
+### UI/UX Guidelines
+
+- Use `SafeAreaView` or `SafeAreaContext` for proper insets
+- Implement responsive designs with `useWindowDimensions`
+- Support both light and dark themes
+- Test on multiple device sizes and orientations
+- Use `StatusBar` component for customizing status bar appearance
+- Implement proper keyboard handling with `KeyboardAvoidingView`
+
+### Animation with Moti
+
+- Use Moti for declarative animations built on Reanimated
+- Compose animations with `MotiView` and other Moti components
+- Define transitions with the `from` and `animate` props
+- Use `useDynamicAnimation` for dynamic values
+- Implement gesture-driven animations with Moti and React Native Gesture Handler
+- Create shared element transitions for smooth navigation experiences
+
+### State Persistence with MMKV
+
+- Use MMKV instead of AsyncStorage for better performance
+- Create a wrapper utility for type-safe storage
+- Integrate MMKV with Zustand for persistent state
+- Use encryption for sensitive data
+- Implement proper error handling for storage operations
+- Set up migration strategies for data schema changes
+
+## Integration Patterns
+
+### Convex Integration
+
+- Set up Convex client in a provider at app root
+- Create typed hooks for Convex queries and mutations
+- Implement optimistic updates for better UX
+- Handle offline scenarios with proper error states
+- Cache Convex responses effectively with TanStack Query
+
+### Device Features
+
+- Access camera, location, etc. through Expo modules
+- Request permissions explicitly before using device features
+- Handle permission denials gracefully with fallbacks
+- Use `expo-notifications` for push and local notifications
+- Implement deep linking with `expo-linking`
+- Use `expo-file-system` for file operations

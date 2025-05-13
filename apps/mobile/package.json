@@ -1,28 +1,40 @@
 {
-  "name": "@orbit/mobile",
-  "version": "0.0.0",
-  "type": "module",
+  "name": "mobile",
+  "version": "0.1.0",
+  "main": "index.ts",
   "scripts": {
-    "build": "rspeedy build",
-    "dev": "rspeedy dev",
-    "preview": "rspeedy preview"
+    "dev": "expo start -c --tunnel",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
   },
   "dependencies": {
-    "@lynx-js/react": "^0.108.0",
-    "convex": "^1.24.1"
+    "@rn-primitives/portal": "^1.2.0",
+    "@rn-primitives/slot": "^1.1.0",
+    "@rn-primitives/tooltip": "^1.1.0",
+    "@rn-primitives/types": "^1.1.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "expo": "~53.0.9",
+    "expo-constants": "^17.1.6",
+    "expo-linking": "^7.1.5",
+    "expo-router": "^5.0.6",
+    "expo-status-bar": "~2.2.3",
+    "lucide-react-native": "^0.510.0",
+    "moti": "^0.30.0",
+    "nativewind": "^4.1.23",
+    "react": "19.0.0",
+    "react-native": "0.79.2",
+    "react-native-reanimated": "^3.17.5",
+    "react-native-safe-area-context": "^5.4.0",
+    "react-native-screens": "^4.10.0",
+    "react-native-svg": "15.11.2",
+    "tailwind-merge": "^3.3.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@lynx-js/qrcode-rsbuild-plugin": "^0.3.6",
-    "@lynx-js/react-rsbuild-plugin": "^0.9.9",
-    "@lynx-js/rspeedy": "^0.9.4",
-    "@lynx-js/tailwind-preset": "^0.0.3",
-    "@lynx-js/types": "^3.2.1",
-    "@types/react": "^18.3.21",
-    "rsbuild-plugin-tailwindcss": "^0.2.1",
-    "tailwindcss": "3.4.17",
-    "typescript": "5.8.2"
+    "@babel/core": "^7.20.0",
+    "tailwindcss": "^4.1.6"
   },
-  "engines": {
-    "node": ">=18"
-  }
+  "private": true
 }

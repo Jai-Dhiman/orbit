@@ -1,17 +1,33 @@
 {
   "extends": "../../tsconfig.json",
-    "compilerOptions": {
-      "jsx": "preserve",
-  
-      "module": "node16",
-      "moduleResolution": "node16",
-  
-      "strict": true,
-      "isolatedModules": true,
-      "verbatimModuleSyntax": true,
-  
-      "esModuleInterop": true,
-      "skipLibCheck": true,
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "react-native",
+    "lib": [
+      "es2017"
+    ],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "strict": true,
+    "target": "esnext",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
     },
-    "exclude": ["dist/"],
+    "baseUrl": "."
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "nativewind-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js"
+  ]
 }
