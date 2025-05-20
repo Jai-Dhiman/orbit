@@ -1,5 +1,5 @@
 {
-  "name": "@orbit/ui",
+  "name": "@arden/ui",
   "version": "0.1.0",
   "private": true,
   "main": "src/index.ts",
@@ -9,9 +9,6 @@
     "format": "biome format . --write"
   },
   "dependencies": {
-    "@lynx-js/react": "^0.108.0",
-    "clsx": "^2.0.0",
-    "tailwindcss": "^3.3.3"
   },
   "devDependencies": {
     "typescript": "^5.2.2"

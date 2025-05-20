@@ -1,11 +1,11 @@
 {
-  "name": "orbit",
+  "name": "arden",
   "private": true,
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "dev:web": "turbo run dev --filter=@orbit/web",
-    "dev:mobile": "turbo run dev --filter=@orbit/mobile",
+    "dev:web": "turbo run dev --filter=@arden/web",
+    "dev:mobile": "turbo run dev --filter=@arden/mobile",
     "lint": "turbo run lint",
     "format": "biome format --write .",
     "lint:biome": "biome lint --write .",

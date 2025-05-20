@@ -3,11 +3,11 @@ description:
 globs: 
 alwaysApply: true
 ---
-# Orbit: Your Personal AI Assistant
+# Arden: Your Personal AI Assistant
 
 ## Vision & Mission
 
-Orbit is a comprehensive personal AI assistant designed to transform how you manage your day-to-day life. By combining intelligent note-taking, schedule management, emotional support, and accountability tools in one seamless experience, Orbit becomes your trusted companion for personal growth and productivity.
+Arden is a comprehensive personal AI assistant designed to transform how you manage your day-to-day life. By combining intelligent note-taking, schedule management, emotional support, and accountability tools in one seamless experience, Arden becomes your trusted companion for personal growth and productivity.
 
 Our mission is to create an AI assistant that truly understands you, adapts to your needs, and helps you achieve your goals while maintaining your privacy and security.
 
@@ -35,7 +35,7 @@ Access your personal AI assistant across devices with perfect synchronization an
 
 ## Technical Innovation
 
-Orbit leverages cutting-edge technology to deliver a responsive, intelligent, and personalized experience:
+Arden leverages cutting-edge technology to deliver a responsive, intelligent, and personalized experience:
 
 ### Cross-Platform Architecture
 
@@ -49,7 +49,6 @@ Orbit leverages cutting-edge technology to deliver a responsive, intelligent, an
 - **Web Platform**: Optimized web experience that loads and renders efficiently in browsers
 - **Mobile Platform**: Native-feeling mobile experience for iOS and Android
 - **Multi-Threaded Architecture**: Ensuring smooth UI responsiveness by separating user code and framework operations
-- **Tailwind/Shadcn UI**: Beautiful, consistent design system with Lucide icons for visual clarity
 
 ### Intelligent Backend
 
@@ -90,16 +89,16 @@ Introducing sentiment analysis, personalized motivation, and progress visualizat
 
 ## Privacy & Security
 
-Your personal data deserves the highest level of protection. Orbit implements:
+Your personal data deserves the highest level of protection. Arden implements:
 
 - End-to-end encryption for all personal data
 - LLM calls sanitized of personal identifiers
 - Transparent AI processing with clear user controls
 - No data sharing with third parties
 
-## Why Orbit?
+## Why Arden?
 
-Unlike other AI assistants, Orbit sets itself apart through:
+Unlike other AI assistants, Arden sets itself apart through:
 
 - Deep integration between notes and calendar functions
 - Conversation-first interface for all features

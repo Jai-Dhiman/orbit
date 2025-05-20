@@ -51,6 +51,18 @@ alwaysApply: true
 - Use `StatusBar` component for customizing status bar appearance
 - Implement proper keyboard handling with `KeyboardAvoidingView`
 
+### Styling with StyleSheet API
+
+- Use StyleSheet.create() for optimized styles by ID reference
+- Keep inline styles to a minimum, only for truly dynamic properties
+- Use style composition with array syntax for conditional styling
+- Organize styles by component or in dedicated style modules
+- Use Platform.select() for platform-specific styling when needed
+- Implement a theme context for dynamic theming (light/dark modes)
+- Create a consistent color palette and spacing system
+- Leverage StyleSheet.compose() for merging style objects
+- Use StyleSheet.flatten() when style analysis is needed
+
 ### Animation with Moti
 
 - Use Moti for declarative animations built on Reanimated

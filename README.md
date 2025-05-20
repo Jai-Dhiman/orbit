@@ -1,9 +1,9 @@
 
-# Orbit: Your Personal AI Assistant
+# Arden: Your Personal AI Assistant
 
 ## Vision & Mission
 
-Orbit is a comprehensive personal AI assistant designed to transform how you manage your day-to-day life. By combining intelligent note-taking, schedule management, emotional support, and accountability tools in one seamless experience, Orbit becomes your trusted companion for personal growth and productivity.
+Arden is a comprehensive personal AI assistant designed to transform how you manage your day-to-day life. By combining intelligent note-taking, schedule management, emotional support, and accountability tools in one seamless experience, Arden becomes your trusted companion for personal growth and productivity.
 
 Our mission is to create an AI assistant that truly understands you, adapts to your needs, and helps you achieve your goals while maintaining your privacy and security.
 
@@ -20,9 +20,8 @@ Our mission is to create an AI assistant that truly understands you, adapts to y
 ### Frontend
 - **React Native & Expo**: Cross-platform mobile development
 - **Expo Router**: File-system based navigation
-- **NativeWind**: Tailwind CSS for React Native
-- **Shadcn UI**: Customizable component library
-- **Lucide Icons**: Beautiful, consistent iconography
+- **StyleSheet API**: App-wide consistent styling
+- **Lucide Icons**: Beautiful iconography
 - **Moti**: Declarative animations
 
 ### State Management
@@ -46,8 +45,8 @@ Our mission is to create an AI assistant that truly understands you, adapts to y
 
 ```bash
 # Clone the repository
-git clone https://github.com/Jai-Dhiman/orbit.git
-cd orbit
+git clone https://github.com/Jai-Dhiman/Arden.git
+cd Arden
 
 # Install dependencies
 bun install
@@ -68,7 +67,7 @@ CLAUDE_API_KEY=your-claude-api-key
 ## Project Structure
 
 ```
-orbit/
+Arden/
 ├── packages/          # Shared code packages
 │   ├── core/          # Business logic
 │   └── ui/            # UI components
@@ -88,7 +87,7 @@ orbit/
 
 ## Privacy & Security
 
-Orbit implements:
+Arden implements:
 - End-to-end encryption for all personal data
 - LLM calls sanitized of personal identifiers
 - No data sharing with third parties

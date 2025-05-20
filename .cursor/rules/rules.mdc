@@ -3,7 +3,7 @@ description:
 globs: 
 alwaysApply: true
 ---
-# Cursor Rules for Orbit Project
+# Cursor Rules for Arden Project
 
 ## Monorepo Architecture
 
@@ -79,22 +79,31 @@ alwaysApply: true
 - Use `bun.lockb` for deterministic builds
 - When adding new dependencies, use `bun add [package]` (or `bun add -d [package]` for dev dependencies)
 
-## Styling with NativeWind and Shadcn UI
+## Styling with React Native StyleSheet API
 
-### NativeWind (Tailwind for React Native)
+### StyleSheet Approach
 
-- Use Tailwind utility classes for styling components
-- Follow mobile-first approach for responsive design
-- Use `clsx` or `cn` utility for conditional class names
-- Configure theme tokens in `tailwind.config.js`
-- Use CSS variables for dynamic theming
+- Use React Native's StyleSheet.create() for all static styles
+- Group related styles within StyleSheet.create() objects 
+- Only use inline styles for truly dynamic properties
+- Maintain consistent style naming conventions across components
+- Create reusable style objects for common patterns
 
-### Shadcn UI (react-native-reusables)
+### Style Organization
 
-- Use Shadcn components adapted for React Native through nativecn
-- Customize appearance through the Tailwind theme configuration
-- Maintain accessibility standards when customizing components
+- Keep component-specific styles within the component file
+- Place shared styles in dedicated style files within feature directories
+- Store global/theme styles in `/packages/ui/styles` 
+- Use style composition with array syntax: `style={[styles.base, styles.active]}`
+- Implement a theming system with a context provider
+
+### UI Components
+
+- Build custom UI components from native primitives
 - Use Lucide icons consistently throughout the app
+- Maintain accessibility standards in all custom components
+- Create a theme context to support both light and dark modes
+- Use Platform.select() for platform-specific styling when needed
 
 ## State Management with Zustand and MMKV
 

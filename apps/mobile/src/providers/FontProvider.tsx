@@ -32,14 +32,14 @@ export function FontProvider({ children }: { children: React.ReactNode }) {
 
   if (!fontsLoaded) {
     return (
-      <View className="flex-1 items-center justify-center">
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <ActivityIndicator size="large" color="#3b82f6" />
       </View>
     );
   }
 
   return (
-    <View className="flex-1">
+    <View style={{ flex: 1 }}>
       {children}
     </View>
   );
