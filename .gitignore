@@ -27,6 +27,7 @@ dist
 *.pem
 *.local
 *.log*
+.cursor
 
 # Expo
 .expo/

@@ -4,7 +4,7 @@
     "slug": "Arden",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Arden.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
@@ -21,7 +21,7 @@
       "edgeToEdgeEnabled": true
     },
     "web": {
-      "favicon": "./assets/icon.png",
+      "favicon": "./assets/Arden.png",
       "bundler": "metro"
     },
     "plugins": [

@@ -23,5 +23,9 @@
     "node": ">=18"
   },
   "packageManager": "bun@1.1.42",
-  "workspaces": ["apps/*", "packages/*"]
+  "workspaces": ["apps/*", "packages/*"],
+  "dependencies": {
+    "@react-navigation/material-top-tabs": "^7.2.13",
+    "react-native-pager-view": "^6.8.0"
+  }
 }
