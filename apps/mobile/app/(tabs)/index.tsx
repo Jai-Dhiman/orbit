@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { View, Text, SafeAreaView, Pressable, StyleSheet, useColorScheme, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, Pressable, StyleSheet, useColorScheme, FlatList, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Menu, User } from 'lucide-react-native';
 import { ChatBox } from '@arden/ui';
 import { useRouter } from 'expo-router';
