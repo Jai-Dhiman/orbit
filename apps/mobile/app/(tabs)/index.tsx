@@ -1,5 +1,6 @@
 import React, { useRef, useCallback, useMemo } from 'react';
 import { View, Text, SafeAreaView, Pressable, StyleSheet, useColorScheme, FlatList, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Menu, User } from 'lucide-react-native';
 import { ChatInputTrigger, ChatView } from '@arden/ui';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';

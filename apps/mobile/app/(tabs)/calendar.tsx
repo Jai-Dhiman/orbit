@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { View, Text, SafeAreaView, Pressable, StyleSheet, ScrollView, useColorScheme } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, useColorScheme } from 'react-native';
 import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { lightColors, darkColors } from '@arden/ui/styles/colors';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function CalendarScreen() {
   const scheme = useColorScheme();
