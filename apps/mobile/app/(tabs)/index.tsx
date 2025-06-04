@@ -1,7 +1,8 @@
-import * as React from 'react';
+import React, { useRef, useCallback, useMemo } from 'react';
 import { View, Text, SafeAreaView, Pressable, StyleSheet, useColorScheme, FlatList, TouchableOpacity } from 'react-native';
 import { Menu, User } from 'lucide-react-native';
-import { ChatBox } from '@arden/ui';
+import { ChatInputTrigger, ChatView } from '@arden/ui';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useRouter } from 'expo-router';
 import { lightColors, darkColors } from '@arden/ui/styles/colors';
 
@@ -11,13 +12,17 @@ export default function HomeScreen() {
   const styles = getStyles(colors);
   const router = useRouter();
   const [showMenu, setShowMenu] = React.useState(false);
-  const [value, setValue] = React.useState('');
-  const models = ['sonnet 3.7', 'o4 mini'];
-  const [selectedModel, setSelectedModel] = React.useState<string>(models[0]!);
-  const handleSend = () => { console.log('Send:', value, 'with model', selectedModel); setValue(''); };
-  const handleModelChange = (model: string) => { setSelectedModel(model); };
   const tabs = ['All', 'Notes', 'Tasks', 'Goals', 'AI'] as const;
   const [selectedTab, setSelectedTab] = React.useState<typeof tabs[number]>('All');
+
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const snapPoints = useMemo(() => ['25%', '90%'], []);
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log('handleSheetChanges', index);
+  }, []);
 
   // Dummy static feed data
   const dummyFeed = [
@@ -56,16 +61,9 @@ export default function HomeScreen() {
             </Pressable>
           </View>
         )}
-        {/* Chat Box */}
+        {/* Chat Input Trigger */}
         <View style={styles.promptContainer}>
-          <ChatBox
-            models={models}
-            selectedModel={selectedModel}
-            onModelChange={handleModelChange}
-            value={value}
-            onChangeText={setValue}
-            onSend={handleSend}
-          />
+          <ChatInputTrigger onPress={handlePresentModalPress} placeholder="Tap to start chatting..." />
         </View>
         {/* Badge Counts */}
         <View style={styles.badgeContainer}>
@@ -137,11 +135,19 @@ export default function HomeScreen() {
           )}
         />
       </View>
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        index={1}
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}
+      >
+        <ChatView />
+      </BottomSheetModal>
     </SafeAreaView>
   );
 }
 
-const getStyles = (colors: typeof lightColors) => StyleSheet.create({
+const getStyles = (colors: typeof lightColors | typeof darkColors) => StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: colors.background,
@@ -150,7 +156,7 @@ const getStyles = (colors: typeof lightColors) => StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-  promptContainer: { marginTop: 16, marginHorizontal: 16 },
+  promptContainer: { marginVertical: 16, marginHorizontal: 16 }, // Adjusted margin for visual balance
   topNav: {
     flexDirection: 'row',
     alignItems: 'center',

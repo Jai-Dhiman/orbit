@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@gorhom/bottom-sheet": "^5.1.6",
     "@rn-primitives/portal": "^1.2.0",
     "@rn-primitives/slot": "^1.1.0",
     "@rn-primitives/tooltip": "^1.1.0",
@@ -22,13 +23,13 @@
     "lucide-react-native": "^0.510.0",
     "moti": "^0.30.0",
     "react": "19.0.0",
-    "react-native": "0.79.2",
     "react-dom": "19.0.0",
-    "react-native-web": "^0.20.0",
-    "react-native-reanimated": "^3.17.5",
+    "react-native": "0.79.2",
+    "react-native-reanimated": "^3.18.0",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "^4.10.0",
     "react-native-svg": "15.11.2",
+    "react-native-web": "^0.20.0",
     "zustand": "^5.0.4"
   },
   "devDependencies": {
