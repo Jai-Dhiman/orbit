@@ -40,7 +40,7 @@ Arden leverages cutting-edge technology to deliver a responsive, intelligent, an
 ### Cross-Platform Architecture
 
 - **Monorepo Structure**: Unified codebase that shares business logic across web and mobile platforms
-- **Lynx Framework**: Cross-platform UI framework delivering superior performance with native components
+- **React-Natice + Expo Framework**: Cross-platform UI framework delivering superior performance with native components
 - **Responsive Design**: Adaptive UI that intelligently adjusts to different screen sizes and platforms
 - **Offline-First Design**: Continuous functionality even without network connection
 
