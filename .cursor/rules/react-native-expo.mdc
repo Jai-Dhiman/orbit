@@ -81,16 +81,6 @@ alwaysApply: true
 - Implement proper error handling for storage operations
 - Set up migration strategies for data schema changes
 
-## Integration Patterns
-
-### Convex Integration
-
-- Set up Convex client in a provider at app root
-- Create typed hooks for Convex queries and mutations
-- Implement optimistic updates for better UX
-- Handle offline scenarios with proper error states
-- Cache Convex responses effectively with TanStack Query
-
 ### Device Features
 
 - Access camera, location, etc. through Expo modules

@@ -50,17 +50,13 @@ alwaysApply: true
       - `/lib` - Third-party library wrappers
       - `/assets` - Static assets
   - `/server` - Shared backend
-    - `/convex` - Convex backend code
-      - `/schema` - Database schema
-      - `/functions` - Server functions
-      - `/auth` - Authentication logic
-
+  
 ### Code Sharing Strategy
 
 - Core business logic, API calls, and utilities in `/packages/core`
 - Shared UI components in `/packages/ui`
 - Platform-specific code in respective app directories
-- Convex backend shared across all platforms
+- Cloudflare Worker backend shared across all platforms
 
 ### Naming Conventions
 
