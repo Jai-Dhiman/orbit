@@ -40,7 +40,7 @@ Arden leverages cutting-edge technology to deliver a responsive, intelligent, an
 ### Cross-Platform Architecture
 
 - **Monorepo Structure**: Unified codebase that shares business logic across web and mobile platforms
-- **React-Natice + Expo Framework**: Cross-platform UI framework delivering superior performance with native components
+- **React Native Framework**: Cross-platform UI framework delivering superior performance with native components
 - **Responsive Design**: Adaptive UI that intelligently adjusts to different screen sizes and platforms
 - **Offline-First Design**: Continuous functionality even without network connection
 
@@ -52,7 +52,7 @@ Arden leverages cutting-edge technology to deliver a responsive, intelligent, an
 
 ### Intelligent Backend
 
-- **Convex**: Real-time data synchronization with built-in authentication and serverless functions
+- **Cloudflare Workers**: Serverless functions
 - **TanStack Query**: Sophisticated data fetching with automatic caching, background updates, and optimized server state management
 - **LLM Strategy**: Claude Sonnet 3.7 with specialized prompts
 - **Vector Embeddings**: Personalized knowledge graph that grows with usage

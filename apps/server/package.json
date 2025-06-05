@@ -1,15 +1,25 @@
 {
-  "name": "Arden-convex-backend",
-  "version": "0.1.0",
+  "name": "server",
   "private": true,
+  "version": "0.0.0",
   "scripts": {
-    "dev": "convex dev",
-    "deploy": "convex deploy"
+    "dev": "wrangler dev src/index.ts",
+    "deploy": "wrangler deploy src/index.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "wrangler d1 migrations apply arden-db"
   },
   "dependencies": {
-    "convex": "^1.8.0"
+    "@hono/zod-validator": "^0.4.2",
+    "drizzle-orm": "^0.39.1",
+    "hono": "^4.7.2",
+    "nanoid": "^5.0.9",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
-    "typescript": "5.8.2"
+    "@cloudflare/workers-types": "^4.20250317.0",
+    "@hono/node-server": "^1.13.8",
+    "drizzle-kit": "^0.30.4",
+    "typescript": "5.5.4",
+    "wrangler": "^4.1.0"
   }
-} 
+}

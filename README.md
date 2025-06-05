@@ -31,7 +31,7 @@ Our mission is to create an AI assistant that truly understands you, adapts to y
 - **TanStack Form**: Type-safe form handling
 
 ### Backend
-- **Convex**: Real-time data synchronization with built-in authentication
+- **Hono + Cloudflare Workers**: Serverless
 - **Vector Embeddings**: Personalized knowledge graph
 - **Claude 3.7 Sonnet**: Advanced language model integration
 
