@@ -1,30 +1,67 @@
-import * as React from 'react';
-import { View, Text, StyleSheet, SectionList, Pressable, useColorScheme } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { FileText } from 'lucide-react-native';
-import { lightColors, darkColors } from '@arden/ui/styles/colors';
+import { View, Text, StyleSheet, FlatList, useColorScheme, ActivityIndicator, TextInput } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { FileText, Search, Plus } from 'lucide-react-native'
+import { lightColors, darkColors } from '@arden/ui/styles/colors'
+import { useNotes, useToggleNoteFavorite, useUpdateNote } from '@arden/core/hooks'
+import { useNotesStore } from '@arden/core/state'
+import { NoteCard } from '@/src/components/NoteCard'
 
 export default function NotesScreen() {
-  const scheme = useColorScheme();
-  const colors = scheme === 'dark' ? darkColors : lightColors;
-  const styles = getStyles(colors);
+  const scheme = useColorScheme()
+  const colors = scheme === 'dark' ? darkColors : lightColors
+  const styles = getStyles(colors)
 
-  const sections = [
-    {
-      title: 'This Week',
-      data: [
-        { id: '1', title: 'Shopping List', snippet: 'Eggs, Milk, Bread' },
-        { id: '2', title: 'Project Plan', snippet: 'Outline features for Arden app' },
-      ],
-    },
-    {
-      title: 'Last Week',
-      data: [
-        { id: '3', title: 'Meeting Notes', snippet: 'Discuss Q2 roadmap' },
-        { id: '4', title: 'Ideas', snippet: 'AI journaling feature' },
-      ],
-    },
-  ];
+  // Zustand store for client state
+  const {
+    searchQuery,
+    showArchived,
+    showFavorites,
+    setSearchQuery,
+    getQueryParams,
+  } = useNotesStore()
+
+  // TanStack Query for server state
+  const { data: notesData, isLoading, error } = useNotes(getQueryParams())
+  const toggleFavoriteMutation = useToggleNoteFavorite()
+  const updateNoteMutation = useUpdateNote()
+
+  const handleToggleFavorite = (noteId: string, currentFavorite: boolean) => {
+    toggleFavoriteMutation.mutate({
+      id: noteId,
+      favorite: !currentFavorite,
+    })
+  }
+
+  const handleToggleArchive = (noteId: string, currentArchived: boolean) => {
+    updateNoteMutation.mutate({
+      id: noteId,
+      input: { archived: !currentArchived },
+    })
+  }
+
+  if (isLoading) {
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.centerContainer}>
+          <ActivityIndicator size="large" color={colors.accent1} />
+          <Text style={styles.loadingText}>Loading notes...</Text>
+        </View>
+      </SafeAreaView>
+    )
+  }
+
+  if (error) {
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.centerContainer}>
+          <Text style={styles.errorText}>Error loading notes</Text>
+          <Text style={styles.errorDetails}>{error.message}</Text>
+        </View>
+      </SafeAreaView>
+    )
+  }
+
+  const notes = notesData?.notes || []
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -34,22 +71,43 @@ export default function NotesScreen() {
         <Text style={styles.headerTitle}>Notes</Text>
       </View>
 
-      <SectionList
-        sections={sections}
-        keyExtractor={item => item.id}
-        renderSectionHeader={({ section }) => (
-          <Text style={styles.sectionHeader}>{section.title}</Text>
-        )}
+      {/* Search */}
+      <View style={styles.searchContainer}>
+        <Search size={20} color={colors.text2} />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search notes..."
+          placeholderTextColor={colors.text2}
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+      </View>
+
+      {/* Notes List */}
+      <FlatList
+        data={notes}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>{item.title}</Text>
-            <Text style={styles.cardSnippet}>{item.snippet}</Text>
-          </View>
+          <NoteCard
+            note={item}
+            onToggleFavorite={() => handleToggleFavorite(item.id, item.favorite)}
+            onToggleArchive={() => handleToggleArchive(item.id, item.archived)}
+          />
         )}
         contentContainerStyle={styles.listContent}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={
+          <View style={styles.emptyContainer}>
+            <FileText size={48} color={colors.text2} />
+            <Text style={styles.emptyTitle}>No notes yet</Text>
+            <Text style={styles.emptySubtitle}>
+              {searchQuery ? 'No notes match your search' : 'Start by creating your first note'}
+            </Text>
+          </View>
+        }
       />
     </SafeAreaView>
-  );
+  )
 }
 
 const getStyles = (colors: typeof lightColors) =>
@@ -69,31 +127,67 @@ const getStyles = (colors: typeof lightColors) =>
       color: colors.text1,
       marginLeft: 8,
     },
-    sectionHeader: {
-      fontSize: 18,
-      fontWeight: '500',
-      color: colors.text2,
-      marginTop: 16,
-      marginHorizontal: 16,
-    },
-    card: {
+    searchContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
       backgroundColor: colors.surface,
-      padding: 12,
-      marginHorizontal: 16,
-      marginTop: 8,
-      borderRadius: 8,
+      margin: 16,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: colors.border,
     },
-    cardTitle: {
+    searchInput: {
+      flex: 1,
+      marginLeft: 8,
       fontSize: 16,
-      fontWeight: '500',
       color: colors.text1,
-    },
-    cardSnippet: {
-      fontSize: 14,
-      color: colors.text2,
-      marginTop: 4,
+      padding: 0,
     },
     listContent: {
       paddingBottom: 100,
     },
-  }); 
+    centerContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 16,
+    },
+    loadingText: {
+      fontSize: 16,
+      color: colors.text2,
+      marginTop: 16,
+    },
+    errorText: {
+      fontSize: 18,
+      fontWeight: '600',
+      color: colors.text1,
+      marginBottom: 8,
+    },
+    errorDetails: {
+      fontSize: 14,
+      color: colors.text2,
+      textAlign: 'center',
+    },
+    emptyContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 32,
+      marginTop: 60,
+    },
+    emptyTitle: {
+      fontSize: 18,
+      fontWeight: '600',
+      color: colors.text1,
+      marginTop: 16,
+      marginBottom: 8,
+    },
+    emptySubtitle: {
+      fontSize: 14,
+      color: colors.text2,
+      textAlign: 'center',
+      lineHeight: 20,
+    },
+  }) 

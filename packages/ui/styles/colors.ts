@@ -8,6 +8,9 @@ export const lightColors = {
   accent1: '#7D6E83',
   accent2: '#94B49F',
   accent3: '#D7A86E',
+  success: '#16A34A',
+  warning: '#EAB308',
+  error: '#DC2626',
 };
 
 export const darkColors = {
@@ -20,4 +23,7 @@ export const darkColors = {
   accent1: '#A798AE',
   accent2: '#B3D2BD',
   accent3: '#F2C088',
+  success: '#22C55E',
+  warning: '#FACC15',
+  error: '#EF4444',
 }; 

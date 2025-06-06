@@ -1,2 +1,3 @@
-// API abstractions and service functions will be exported from here
-export {}; 
+// Shared API client functions
+export * from './notes'
+export * from './client' 
