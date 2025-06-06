@@ -62,6 +62,23 @@ async function generateJwtToken(userId: string, email: string | undefined, env: 
     return { accessToken, refreshToken, accessTokenExpiresAt };
 }
 
+// Enhanced type safety for auth responses
+const AuthResponseSchema = z.object({
+  session: z.object({
+    access_token: z.string(),
+    refresh_token: z.string(),
+    expires_at: z.number(),
+  }),
+  user: z.object({
+    id: z.string(),
+    email: z.string().nullable(),
+    name: z.string().nullable(),
+    picture: z.string().nullable(),
+  }),
+  profileExists: z.boolean(),
+  isNewUser: z.boolean().optional(),
+});
+
 // OAuth callback route for Google and Apple
 router.post("/oauth/callback", async (c) => {
   try {

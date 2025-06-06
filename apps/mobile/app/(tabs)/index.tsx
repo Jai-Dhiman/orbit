@@ -5,6 +5,7 @@ import { Menu, User } from 'lucide-react-native';
 import { ChatBox } from '@arden/ui';
 import { useRouter } from 'expo-router';
 import { lightColors, darkColors } from '@arden/ui/styles/colors';
+import { HealthStatus } from '@/src/components/HealthStatus';
 
 export default function HomeScreen() {
   const scheme = useColorScheme();
@@ -57,6 +58,10 @@ export default function HomeScreen() {
             </Pressable>
           </View>
         )}
+
+        {/* Health Status */}
+        <HealthStatus />
+
         {/* Chat Box */}
         <View style={styles.promptContainer}>
           <ChatBox

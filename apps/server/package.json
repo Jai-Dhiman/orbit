@@ -9,7 +9,10 @@
     "db:migrate": "wrangler d1 migrations apply arden-db"
   },
   "dependencies": {
+    "@hono/trpc-server": "^0.3.4",
     "@hono/zod-validator": "^0.4.2",
+    "@trpc/client": "^11.3.1",
+    "@trpc/server": "^11.3.1",
     "drizzle-orm": "^0.39.1",
     "hono": "^4.7.2",
     "nanoid": "^5.0.9",

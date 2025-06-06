@@ -7,7 +7,7 @@ const healthRouter = new Hono<{
   Bindings: Bindings
 }>()
 
-healthRouter.get('/', async (c) => {
+const healthRoute = healthRouter.get('/', async (c) => {
   try {
     const dbInstance = createD1Client(c.env)
     const result = await dbInstance.select().from(schema.users).limit(1).execute()
@@ -17,7 +17,7 @@ healthRouter.get('/', async (c) => {
       timestamp: new Date().toISOString(),
       database: 'connected',
       dbCheck: result.length > 0 ? 'records exist' : 'no records',
-    })
+    }, 200)
   } catch (error) {
     console.error('Database health check failed:', error)
     return c.json(
@@ -31,5 +31,7 @@ healthRouter.get('/', async (c) => {
     )
   }
 })
+
+export type HealthRouteType = typeof healthRoute
 
 export default healthRouter

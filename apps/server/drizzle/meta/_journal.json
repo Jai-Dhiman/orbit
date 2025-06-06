@@ -8,6 +8,13 @@
       "when": 1749092000880,
       "tag": "0000_plain_strong_guy",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1749229031590,
+      "tag": "0001_round_leo",
+      "breakpoints": true
     }
   ]
 }

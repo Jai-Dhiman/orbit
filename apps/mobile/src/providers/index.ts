@@ -1,2 +1,2 @@
-export { ConvexProvider } from './ConvexProvider';
-export { FontProvider } from './FontProvider'; 
+export { FontProvider } from './FontProvider';
+export { QueryProvider } from './QueryProvider'; 
