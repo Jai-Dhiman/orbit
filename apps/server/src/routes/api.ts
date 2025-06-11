@@ -1,9 +1,10 @@
 import { Hono } from 'hono'
 import type { Bindings } from '@/types'
 import { createD1Client } from '@/db'
-import * as schema from '@/db/schema' 
+import * as schema from '@/db/schema'
 import notesRoutes from './notes'
 import healthRoutes from './health'
+import { calendarEventsRoutes } from './calendar/events'
 
 // Create API router with proper typing
 const apiRouter = new Hono<{
@@ -47,7 +48,14 @@ const apiRoutes = apiRouter
   .route('/health', healthRoutes)
   .route('/notes', notesRoutes)
 
-// Export the complete API type for RPC client
-export type ApiRoutes = typeof apiRoutes
+// Create a new router for /calendar and mount event routes
+const calendarRouter = new Hono<{ Bindings: Bindings }>()
+  .route('/events', calendarEventsRoutes);
 
-export default apiRoutes 
+// Mount the calendar router in the main apiRouter
+const finalApiRoutes = apiRoutes.route('/calendar', calendarRouter);
+
+// Export the complete API type for RPC client
+export type ApiRoutes = typeof finalApiRoutes
+
+export default finalApiRoutes

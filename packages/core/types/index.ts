@@ -40,4 +40,57 @@ export interface NotesResponse {
 
 export interface NoteResponse {
   note: Note
-} 
+}
+
+// Calendar Event types
+export interface CalendarEvent {
+  id: string;
+  userId: string;
+  title: string;
+  description: string | null;
+  startTime: string; // ISO date string
+  endTime: string; // ISO date string
+  isAllDay: boolean;
+  rrule: string | null;
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+}
+
+export interface CreateCalendarEventInput {
+  title: string;
+  description?: string;
+  startTime: string; // ISO date string
+  endTime: string; // ISO date string
+  isAllDay?: boolean;
+  rrule?: string;
+}
+
+export interface UpdateCalendarEventInput {
+  title?: string;
+  description?: string;
+  startTime?: string; // ISO date string
+  endTime?: string; // ISO date string
+  isAllDay?: boolean;
+  rrule?: string;
+}
+
+export interface CalendarEventQueryParams {
+  startDate?: string; // ISO date string
+  endDate?: string; // ISO date string
+  isAllDay?: boolean;
+  limit?: number;
+  offset?: number;
+}
+
+// Response types for calendar events
+// These might be implicitly handled by Hono's RPC if client directly consumes server types.
+// However, defining them explicitly can be good for clarity or if there's any transformation.
+export interface CalendarEventsResponse {
+  // Assuming the server directly returns an array of CalendarEvent
+  events: CalendarEvent[];
+}
+
+export interface CalendarEventResponse {
+  // Assuming the server directly returns a single CalendarEvent
+  event: CalendarEvent;
+}
