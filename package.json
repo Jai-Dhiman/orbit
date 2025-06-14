@@ -6,12 +6,11 @@
     "dev": "turbo run dev",
     "dev:web": "turbo run dev --filter=@arden/web",
     "dev:mobile": "turbo run dev --filter=@arden/mobile",
-    "lint": "turbo run lint",
     "format": "biome format --write .",
-    "lint:biome": "biome lint --write .",
+    "lint": "biome lint --write .",
+    "lint:ci": "biome lint --ci .",
     "check": "biome check --write .",
-    "check:ci": "biome ci .",
-    "check-types": "turbo run check-types",
+    "check:ci": "biome check --ci .",
     "clean": "find . -name node_modules -o -name .turbo -o -name dist | xargs rm -rf"
   },
   "devDependencies": {
