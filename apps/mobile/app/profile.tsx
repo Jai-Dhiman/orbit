@@ -1,53 +1,147 @@
-import * as React from 'react';
-import { SafeAreaView, View, Text, Image, StyleSheet, Pressable, useColorScheme } from 'react-native';
-import { lightColors, darkColors } from '@arden/ui/styles/colors';
-import { ChevronRight } from 'lucide-react-native';
+import { View, Text, StyleSheet, Image, Button, Alert } from 'react-native';
+import { useAuthStore } from 'packages/core/src/state/authStore';
+import { useRouter } from 'expo-router';
+import { colors } from 'packages/ui/styles/colors'; // Assuming colors are available
+
+const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:8787';
 
 export default function ProfileScreen() {
-  const scheme = useColorScheme();
-  const colors = scheme === 'dark' ? darkColors : lightColors;
-  const styles = getStyles(colors);
+  const { user, clearAuth, getRefreshToken } = useAuthStore();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    setLoading(true); // You might want to add a loading state to the store or local state here
+    const refreshToken = getRefreshToken(); // Get refresh token to invalidate on server
+
+    try {
+      // Optional: Call the server's /logout endpoint
+      // This is good practice to invalidate the refresh token on the server side if possible.
+      if (refreshToken) {
+        const response = await fetch(`${API_URL}/auth/logout`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ refresh_token: refreshToken }),
+        });
+        if (!response.ok) {
+          // Log error but proceed with client-side logout anyway
+          console.warn("Server logout failed, proceeding with client-side logout.");
+        }
+      }
+    } catch (error) {
+      console.error("Error during server logout:", error);
+      // Still proceed with client-side logout
+    } finally {
+      clearAuth(); // Clear local auth state
+      // setLoading(false);
+      // Navigation to login screen is handled by the RootLayout's AuthNavigator
+      // router.replace('/login'); // This might not be strictly necessary if RootLayout handles it
+    }
+  };
+
+  // Temporary setLoading function until it's potentially added to store or handled better
+  const setLoading = (isLoading: boolean) => {
+    // console.log("Loading state would be:", isLoading);
+    // In a real app, you'd use a state variable for this
+  };
+
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Profile</Text>
-      </View>
+    <View style={styles.container}>
+      <Text style={styles.title}>Profile</Text>
 
-      {/* Avatar & Info */}
-      <View style={styles.avatarSection}>
-        <Image
-          source={{ uri: 'https://via.placeholder.com/100' }}
-          style={styles.avatar}
+      {user?.picture ? (
+        <Image source={{ uri: user.picture }} style={styles.profileImage} />
+      ) : (
+        <View style={styles.profileImagePlaceholder} />
+      )}
+
+      <Text style={styles.label}>Name:</Text>
+      <Text style={styles.value}>{user?.name || 'Not set'}</Text>
+
+      <Text style={styles.label}>Email:</Text>
+      <Text style={styles.value}>{user?.email || 'Not set'}</Text>
+
+      {user?.profileExists === false && (
+        <Text style={styles.notice}>Please complete your profile information.</Text>
+      )}
+       {useAuthStore.getState().isNewUser === true && (
+        <Text style={styles.notice}>Welcome! This is your profile page. More settings coming soon.</Text>
+      )}
+
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Logout"
+          onPress={() => {
+            Alert.alert(
+              "Logout",
+              "Are you sure you want to logout?",
+              [
+                { text: "Cancel", style: "cancel" },
+                { text: "Logout", onPress: handleLogout, style: "destructive" }
+              ]
+            );
+          }}
+          color={colors.danger} // Assuming a danger color for logout
         />
-        <Text style={styles.name}>Alex Johnson</Text>
-        <Text style={styles.email}>alex.johnson@example.com</Text>
       </View>
-
-      {/* Options List */}
-      <View style={styles.options}>
-        {['Account Settings', 'Notifications', 'Privacy & Security', 'Help & Feedback'].map(option => (
-          <Pressable key={option} style={styles.optionRow}>
-            <Text style={styles.optionText}>{option}</Text>
-            <ChevronRight size={20} color={colors.text2} />
-          </Pressable>
-        ))}
-      </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
-const getStyles = (colors: typeof lightColors) =>
-  StyleSheet.create({
-    safeArea: { flex: 1, backgroundColor: colors.background },
-    header: { padding: 16 },
-    headerTitle: { fontSize: 20, fontWeight: '600', color: colors.text1 },
-    avatarSection: { alignItems: 'center', marginTop: 32 },
-    avatar: { width: 100, height: 100, borderRadius: 50, backgroundColor: colors.muted },
-    name: { fontSize: 18, fontWeight: '500', color: colors.text1, marginTop: 16 },
-    email: { fontSize: 14, color: colors.text2, marginTop: 4 },
-    options: { marginTop: 32 },
-    optionRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 12, paddingHorizontal: 16, borderBottomWidth: 1, borderColor: colors.border },
-    optionText: { fontSize: 16, color: colors.text1 },
-  }); 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    padding: 20,
+    backgroundColor: colors.background, // Assuming background color
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: colors.text, // Assuming text color
+  },
+  profileImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 20,
+    backgroundColor: colors.textSecondary, // Placeholder color
+  },
+  profileImagePlaceholder: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 20,
+    backgroundColor: '#cccccc', // A generic placeholder color
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 15,
+    color: colors.textSecondary, // Assuming secondary text color
+    alignSelf: 'flex-start',
+    width: '90%', // Ensure labels take up width for alignment
+  },
+  value: {
+    fontSize: 16,
+    marginBottom: 10,
+    color: colors.text,
+    alignSelf: 'flex-start',
+    width: '90%',
+  },
+  notice: {
+    marginTop: 20,
+    fontSize: 16,
+    color: colors.primary, // Using primary color for notice, or choose another
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  buttonContainer: {
+    marginTop: 30,
+    width: '80%',
+  }
+});

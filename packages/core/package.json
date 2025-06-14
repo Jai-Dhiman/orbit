@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.80.6",
-    "zustand": "^4.5.7",
-    "hono": "^4.7.11"
+    "hono": "^4.7.11",
+    "zustand": "^4.5.7"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "jest": "^30.0.0",
     "typescript": "^5.2.2"
   }
 }
