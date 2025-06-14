@@ -1,19 +1,19 @@
-import { View, Text, StyleSheet, Pressable, useColorScheme } from 'react-native'
-import { Star, Archive } from 'lucide-react-native'
-import { lightColors, darkColors } from '@arden/ui/styles/colors'
-import type { Note } from '@arden/core/types'
+import { View, Text, StyleSheet, Pressable, useColorScheme } from 'react-native';
+import { Star, Archive } from 'lucide-react-native';
+import { lightColors, darkColors } from '@arden/ui/styles/colors';
+import type { Note } from '@arden/core/types';
 
 interface NoteCardProps {
-  note: Note
-  onPress?: () => void
-  onToggleFavorite?: () => void
-  onToggleArchive?: () => void
+  note: Note;
+  onPress?: () => void;
+  onToggleFavorite?: () => void;
+  onToggleArchive?: () => void;
 }
 
 export function NoteCard({ note, onPress, onToggleFavorite, onToggleArchive }: NoteCardProps) {
-  const scheme = useColorScheme()
-  const colors = scheme === 'dark' ? darkColors : lightColors
-  const styles = getStyles(colors)
+  const scheme = useColorScheme();
+  const colors = scheme === 'dark' ? darkColors : lightColors;
+  const styles = getStyles(colors);
 
   return (
     <Pressable style={styles.card} onPress={onPress}>
@@ -30,10 +30,7 @@ export function NoteCard({ note, onPress, onToggleFavorite, onToggleArchive }: N
             />
           </Pressable>
           <Pressable onPress={onToggleArchive} style={styles.actionButton}>
-            <Archive
-              size={16}
-              color={note.archived ? colors.accent1 : colors.text2}
-            />
+            <Archive size={16} color={note.archived ? colors.accent1 : colors.text2} />
           </Pressable>
         </View>
       </View>
@@ -49,17 +46,13 @@ export function NoteCard({ note, onPress, onToggleFavorite, onToggleArchive }: N
               <Text style={styles.tagText}>#{tag}</Text>
             </View>
           ))}
-          {note.tags.length > 3 && (
-            <Text style={styles.moreTagsText}>+{note.tags.length - 3}</Text>
-          )}
+          {note.tags.length > 3 && <Text style={styles.moreTagsText}>+{note.tags.length - 3}</Text>}
         </View>
       )}
 
-      <Text style={styles.date}>
-        {new Date(note.updatedAt).toLocaleDateString()}
-      </Text>
+      <Text style={styles.date}>{new Date(note.updatedAt).toLocaleDateString()}</Text>
     </Pressable>
-  )
+  );
 }
 
 const getStyles = (colors: typeof lightColors) =>
@@ -126,4 +119,4 @@ const getStyles = (colors: typeof lightColors) =>
       color: colors.text2,
       textAlign: 'right',
     },
-  }) 
+  });

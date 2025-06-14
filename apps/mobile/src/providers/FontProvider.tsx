@@ -38,9 +38,5 @@ export function FontProvider({ children }: { children: React.ReactNode }) {
     );
   }
 
-  return (
-    <View style={{ flex: 1 }}>
-      {children}
-    </View>
-  );
-} 
+  return <View style={{ flex: 1 }}>{children}</View>;
+}

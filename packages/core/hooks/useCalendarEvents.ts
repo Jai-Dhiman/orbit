@@ -4,13 +4,13 @@ import {
   getCalendarEvent,
   createCalendarEvent,
   updateCalendarEvent,
-  deleteCalendarEvent
+  deleteCalendarEvent,
 } from '../api/calendarEvents'; // Adjust path as necessary
 import type {
   CalendarEvent,
   CreateCalendarEventInput,
   UpdateCalendarEventInput,
-  CalendarEventQueryParams
+  CalendarEventQueryParams,
 } from '../types';
 
 // Query keys for calendar events

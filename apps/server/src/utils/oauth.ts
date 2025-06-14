@@ -1,4 +1,4 @@
-import type { OAuthTokens, OAuthUserInfo, OAuthProvider, Bindings } from "../types";
+import type { OAuthTokens, OAuthUserInfo, OAuthProvider, Bindings } from '../types';
 
 export interface GoogleTokenResponse {
   access_token: string;
@@ -40,21 +40,21 @@ export interface AppleUserInfo {
 export async function exchangeGoogleCodeForTokens(
   code: string,
   redirectUri: string,
-  env: Bindings
+  env: Bindings,
 ): Promise<GoogleTokenResponse> {
-  const tokenUrl = "https://oauth2.googleapis.com/token";
-  
+  const tokenUrl = 'https://oauth2.googleapis.com/token';
+
   const response = await fetch(tokenUrl, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: new URLSearchParams({
       code,
       client_id: env.GOOGLE_CLIENT_ID,
       client_secret: env.GOOGLE_CLIENT_SECRET,
       redirect_uri: redirectUri,
-      grant_type: "authorization_code",
+      grant_type: 'authorization_code',
     }),
   });
 
@@ -68,7 +68,7 @@ export async function exchangeGoogleCodeForTokens(
 
 export async function getGoogleUserInfo(accessToken: string): Promise<GoogleUserInfo> {
   const response = await fetch(
-    `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${accessToken}`
+    `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${accessToken}`,
   );
 
   if (!response.ok) {
@@ -82,25 +82,25 @@ export async function getGoogleUserInfo(accessToken: string): Promise<GoogleUser
 export async function exchangeAppleCodeForTokens(
   code: string,
   redirectUri: string,
-  env: Bindings
+  env: Bindings,
 ): Promise<AppleTokenResponse> {
   // For Apple Sign In, we need to create a client assertion JWT
   const clientAssertion = await createAppleClientAssertion(env);
-  
-  const tokenUrl = "https://appleid.apple.com/auth/token";
-  
+
+  const tokenUrl = 'https://appleid.apple.com/auth/token';
+
   const response = await fetch(tokenUrl, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: new URLSearchParams({
       client_id: env.APPLE_CLIENT_ID,
-      client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+      client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
       client_assertion: clientAssertion,
       code,
       redirect_uri: redirectUri,
-      grant_type: "authorization_code",
+      grant_type: 'authorization_code',
     }),
   });
 
@@ -119,7 +119,7 @@ export function parseAppleIdToken(idToken: string): AppleUserInfo {
     if (parts.length !== 3) {
       throw new Error('Invalid JWT format');
     }
-    
+
     const payload = JSON.parse(atob(parts[1]!));
     return payload as AppleUserInfo;
   } catch (error) {
@@ -131,7 +131,7 @@ async function createAppleClientAssertion(env: Bindings): Promise<string> {
   // This is a simplified version - in production, you'd want proper JWT signing
   // For now, we'll create a basic assertion structure
   const header = {
-    alg: "ES256",
+    alg: 'ES256',
     kid: env.APPLE_KEY_ID,
   };
 
@@ -140,7 +140,7 @@ async function createAppleClientAssertion(env: Bindings): Promise<string> {
     iss: env.APPLE_TEAM_ID,
     iat: now,
     exp: now + 3600, // 1 hour
-    aud: "https://appleid.apple.com",
+    aud: 'https://appleid.apple.com',
     sub: env.APPLE_CLIENT_ID,
   };
 
@@ -148,16 +148,16 @@ async function createAppleClientAssertion(env: Bindings): Promise<string> {
   // For now, this is a placeholder that shows the structure
   const encodedHeader = btoa(JSON.stringify(header));
   const encodedPayload = btoa(JSON.stringify(payload));
-  
+
   // This would need proper ES256 signing with the Apple private key
-  const signature = "placeholder_signature";
-  
+  const signature = 'placeholder_signature';
+
   return `${encodedHeader}.${encodedPayload}.${signature}`;
 }
 
 export function normalizeOAuthUserInfo(
   userInfo: GoogleUserInfo | AppleUserInfo,
-  provider: OAuthProvider
+  provider: OAuthProvider,
 ): OAuthUserInfo {
   if (provider === 'google') {
     const googleUser = userInfo as GoogleUserInfo;
@@ -169,14 +169,14 @@ export function normalizeOAuthUserInfo(
       provider: 'google',
     };
   }
-  
+
   const appleUser = userInfo as AppleUserInfo;
   return {
     id: appleUser.sub,
     email: appleUser.email || undefined,
-    name: appleUser.name 
+    name: appleUser.name
       ? `${appleUser.name.firstName || ''} ${appleUser.name.lastName || ''}`.trim() || undefined
       : undefined,
     provider: 'apple',
   };
-} 
+}

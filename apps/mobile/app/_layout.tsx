@@ -23,7 +23,7 @@ function AuthNavigator() {
     if (isLoading) return;
 
     const inAuthGroup = segments[0] === '(auth)'; // e.g. a group for login/signup screens
-    const inAppGroup = segments[0] === '(tabs)';  // e.g. your main app tabs
+    const inAppGroup = segments[0] === '(tabs)'; // e.g. your main app tabs
 
     if (isAuthenticated) {
       // If authenticated:
@@ -65,22 +65,24 @@ function AuthNavigator() {
   );
 }
 
-
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  const [loadedFonts] = useFonts({ // Renamed to avoid conflict if 'loaded' is used elsewhere
+  const [loadedFonts] = useFonts({
+    // Renamed to avoid conflict if 'loaded' is used elsewhere
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     // Add other fonts if any
   });
   const { isLoading: authIsLoading, isAuthenticated } = useAuthStore(); // Get auth loading state
 
   useEffect(() => {
-    if (loadedFonts && !authIsLoading) { // Hide splash only when fonts AND auth state are ready
+    if (loadedFonts && !authIsLoading) {
+      // Hide splash only when fonts AND auth state are ready
       SplashScreen.hideAsync();
     }
   }, [loadedFonts, authIsLoading]);
 
-  if (!loadedFonts || authIsLoading) { // Show splash/null until fonts and auth state are loaded
+  if (!loadedFonts || authIsLoading) {
+    // Show splash/null until fonts and auth state are loaded
     return null; // Or a custom splash screen component
   }
 

@@ -35,7 +35,10 @@ const app = new Hono()
       throw new HTTPException(401, { message: 'Unauthorized' });
     }
     const id = c.req.param('id');
-    const event = await db.select().from(calendarEvents).where(and(eq(calendarEvents.id, id), eq(calendarEvents.userId, userId)));
+    const event = await db
+      .select()
+      .from(calendarEvents)
+      .where(and(eq(calendarEvents.id, id), eq(calendarEvents.userId, userId)));
     if (event.length === 0) {
       throw new HTTPException(404, { message: 'Event not found' });
     }
@@ -68,12 +71,18 @@ const app = new Hono()
       ...body,
       updatedAt: new Date().toISOString(),
     };
-    const result = await db.update(calendarEvents).set(updatedEventData).where(and(eq(calendarEvents.id, id), eq(calendarEvents.userId, userId)));
+    const result = await db
+      .update(calendarEvents)
+      .set(updatedEventData)
+      .where(and(eq(calendarEvents.id, id), eq(calendarEvents.userId, userId)));
     if (result.rowsAffected === 0) {
       throw new HTTPException(404, { message: 'Event not found or access denied' });
     }
     // Fetch the updated event to return it
-    const updatedEvent = await db.select().from(calendarEvents).where(and(eq(calendarEvents.id, id), eq(calendarEvents.userId, userId)));
+    const updatedEvent = await db
+      .select()
+      .from(calendarEvents)
+      .where(and(eq(calendarEvents.id, id), eq(calendarEvents.userId, userId)));
     return c.json(updatedEvent[0]);
   })
   .delete('/:id', async (c) => {
@@ -82,7 +91,9 @@ const app = new Hono()
       throw new HTTPException(401, { message: 'Unauthorized' });
     }
     const id = c.req.param('id');
-    const result = await db.delete(calendarEvents).where(and(eq(calendarEvents.id, id), eq(calendarEvents.userId, userId)));
+    const result = await db
+      .delete(calendarEvents)
+      .where(and(eq(calendarEvents.id, id), eq(calendarEvents.userId, userId)));
     if (result.rowsAffected === 0) {
       throw new HTTPException(404, { message: 'Event not found or access denied' });
     }

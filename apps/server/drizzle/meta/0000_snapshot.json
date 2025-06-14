@@ -83,10 +83,7 @@
       "indexes": {
         "provider_provider_account_id_idx": {
           "name": "provider_provider_account_id_idx",
-          "columns": [
-            "provider",
-            "provider_account_id"
-          ],
+          "columns": ["provider", "provider_account_id"],
           "isUnique": false
         }
       },
@@ -95,12 +92,8 @@
           "name": "oauth_accounts_user_id_users_id_fk",
           "tableFrom": "oauth_accounts",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -198,12 +191,8 @@
           "name": "profile_user_id_users_id_fk",
           "tableFrom": "profile",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -258,12 +247,8 @@
           "name": "user_activity_user_id_users_id_fk",
           "tableFrom": "user_activity",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -338,9 +323,7 @@
       "indexes": {
         "users_email_unique": {
           "name": "users_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         }
       },

@@ -26,11 +26,11 @@ export default function ProfileScreen() {
         });
         if (!response.ok) {
           // Log error but proceed with client-side logout anyway
-          console.warn("Server logout failed, proceeding with client-side logout.");
+          console.warn('Server logout failed, proceeding with client-side logout.');
         }
       }
     } catch (error) {
-      console.error("Error during server logout:", error);
+      console.error('Error during server logout:', error);
       // Still proceed with client-side logout
     } finally {
       clearAuth(); // Clear local auth state
@@ -45,7 +45,6 @@ export default function ProfileScreen() {
     // console.log("Loading state would be:", isLoading);
     // In a real app, you'd use a state variable for this
   };
-
 
   return (
     <View style={styles.container}>
@@ -66,22 +65,20 @@ export default function ProfileScreen() {
       {user?.profileExists === false && (
         <Text style={styles.notice}>Please complete your profile information.</Text>
       )}
-       {useAuthStore.getState().isNewUser === true && (
-        <Text style={styles.notice}>Welcome! This is your profile page. More settings coming soon.</Text>
+      {useAuthStore.getState().isNewUser === true && (
+        <Text style={styles.notice}>
+          Welcome! This is your profile page. More settings coming soon.
+        </Text>
       )}
 
       <View style={styles.buttonContainer}>
         <Button
           title="Logout"
           onPress={() => {
-            Alert.alert(
-              "Logout",
-              "Are you sure you want to logout?",
-              [
-                { text: "Cancel", style: "cancel" },
-                { text: "Logout", onPress: handleLogout, style: "destructive" }
-              ]
-            );
+            Alert.alert('Logout', 'Are you sure you want to logout?', [
+              { text: 'Cancel', style: 'cancel' },
+              { text: 'Logout', onPress: handleLogout, style: 'destructive' },
+            ]);
           }}
           color={colors.danger} // Assuming a danger color for logout
         />
@@ -143,5 +140,5 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 30,
     width: '80%',
-  }
+  },
 });

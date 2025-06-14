@@ -1,43 +1,46 @@
-import { View, Text, StyleSheet, FlatList, useColorScheme, ActivityIndicator, TextInput } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { FileText, Search, Plus } from 'lucide-react-native'
-import { lightColors, darkColors } from '@arden/ui/styles/colors'
-import { useNotes, useToggleNoteFavorite, useUpdateNote } from '@arden/core/hooks'
-import { useNotesStore } from '@arden/core/state'
-import { NoteCard } from '@/src/components/NoteCard'
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  useColorScheme,
+  ActivityIndicator,
+  TextInput,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { FileText, Search, Plus } from 'lucide-react-native';
+import { lightColors, darkColors } from '@arden/ui/styles/colors';
+import { useNotes, useToggleNoteFavorite, useUpdateNote } from '@arden/core/hooks';
+import { useNotesStore } from '@arden/core/state';
+import { NoteCard } from '@/src/components/NoteCard';
 
 export default function NotesScreen() {
-  const scheme = useColorScheme()
-  const colors = scheme === 'dark' ? darkColors : lightColors
-  const styles = getStyles(colors)
+  const scheme = useColorScheme();
+  const colors = scheme === 'dark' ? darkColors : lightColors;
+  const styles = getStyles(colors);
 
   // Zustand store for client state
-  const {
-    searchQuery,
-    showArchived,
-    showFavorites,
-    setSearchQuery,
-    getQueryParams,
-  } = useNotesStore()
+  const { searchQuery, showArchived, showFavorites, setSearchQuery, getQueryParams } =
+    useNotesStore();
 
   // TanStack Query for server state
-  const { data: notesData, isLoading, error } = useNotes(getQueryParams())
-  const toggleFavoriteMutation = useToggleNoteFavorite()
-  const updateNoteMutation = useUpdateNote()
+  const { data: notesData, isLoading, error } = useNotes(getQueryParams());
+  const toggleFavoriteMutation = useToggleNoteFavorite();
+  const updateNoteMutation = useUpdateNote();
 
   const handleToggleFavorite = (noteId: string, currentFavorite: boolean) => {
     toggleFavoriteMutation.mutate({
       id: noteId,
       favorite: !currentFavorite,
-    })
-  }
+    });
+  };
 
   const handleToggleArchive = (noteId: string, currentArchived: boolean) => {
     updateNoteMutation.mutate({
       id: noteId,
       input: { archived: !currentArchived },
-    })
-  }
+    });
+  };
 
   if (isLoading) {
     return (
@@ -47,7 +50,7 @@ export default function NotesScreen() {
           <Text style={styles.loadingText}>Loading notes...</Text>
         </View>
       </SafeAreaView>
-    )
+    );
   }
 
   if (error) {
@@ -58,10 +61,10 @@ export default function NotesScreen() {
           <Text style={styles.errorDetails}>{error.message}</Text>
         </View>
       </SafeAreaView>
-    )
+    );
   }
 
-  const notes = notesData?.notes || []
+  const notes = notesData?.notes || [];
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -107,7 +110,7 @@ export default function NotesScreen() {
         }
       />
     </SafeAreaView>
-  )
+  );
 }
 
 const getStyles = (colors: typeof lightColors) =>
@@ -190,4 +193,4 @@ const getStyles = (colors: typeof lightColors) =>
       textAlign: 'center',
       lineHeight: 20,
     },
-  }) 
+  });

@@ -1,4 +1,4 @@
-import { useAuthStore, AuthUser, AuthSession } from './authStore';
+import { useAuthStore, type AuthUser, type AuthSession } from './authStore';
 import { MMKV } from 'react-native-mmkv';
 
 // Mock MMKV
@@ -63,7 +63,8 @@ describe('useAuthStore', () => {
   });
 
   it('should initialize with default state', () => {
-    const { user, session, isAuthenticated, isLoading, error, isRefreshingToken } = useAuthStore.getState();
+    const { user, session, isAuthenticated, isLoading, error, isRefreshingToken } =
+      useAuthStore.getState();
     expect(user).toBeNull();
     expect(session).toBeNull();
     expect(isAuthenticated).toBe(false);
@@ -136,22 +137,29 @@ describe('useAuthStore', () => {
       const newAccessToken = 'new-fake-access-token';
       const newRefreshToken = 'new-fake-refresh-token';
       const newExpiresAt = Date.now() + 7200 * 1000; // 2 hours
-      const refreshedServerUser = { ...mockUser, name: "Refreshed Test User" };
-      const refreshedServerSession = { access_token: newAccessToken, refresh_token: newRefreshToken, expires_at: newExpiresAt };
+      const refreshedServerUser = { ...mockUser, name: 'Refreshed Test User' };
+      const refreshedServerSession = {
+        access_token: newAccessToken,
+        refresh_token: newRefreshToken,
+        expires_at: newExpiresAt,
+      };
 
       (fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
         json: async () => ({
           user: refreshedServerUser,
           session: refreshedServerSession,
-          profileExists: refreshedServerUser.profileExists
+          profileExists: refreshedServerUser.profileExists,
         }),
       });
 
       useAuthStore.getState().setUserAndSession(mockUser, mockSession); // Initial login
       const accessToken = await useAuthStore.getState().refreshAccessToken();
 
-      expect(fetch).toHaveBeenCalledWith(expect.stringContaining('/auth/refresh'), expect.any(Object));
+      expect(fetch).toHaveBeenCalledWith(
+        expect.stringContaining('/auth/refresh'),
+        expect.any(Object),
+      );
       expect(accessToken).toBe(newAccessToken);
 
       const state = useAuthStore.getState();
@@ -163,8 +171,14 @@ describe('useAuthStore', () => {
       expect(state.isLoading).toBe(false); // isLoading should also be reset
 
       // Check MMKV persistence
-      expect(mmkvInstance.set).toHaveBeenCalledWith('auth.user', JSON.stringify(refreshedServerUser));
-      expect(mmkvInstance.set).toHaveBeenCalledWith('auth.session', JSON.stringify(expect.objectContaining({ access_token: newAccessToken })));
+      expect(mmkvInstance.set).toHaveBeenCalledWith(
+        'auth.user',
+        JSON.stringify(refreshedServerUser),
+      );
+      expect(mmkvInstance.set).toHaveBeenCalledWith(
+        'auth.session',
+        JSON.stringify(expect.objectContaining({ access_token: newAccessToken })),
+      );
     });
 
     it('should clear auth if refresh token fails', async () => {
@@ -190,28 +204,34 @@ describe('useAuthStore', () => {
     });
 
     it('should return null and clear auth if no refresh token is available', async () => {
-        useAuthStore.getState().setUserAndSession(mockUser, { ...mockSession, refresh_token: '' }); // No refresh token
-        const accessToken = await useAuthStore.getState().refreshAccessToken();
+      useAuthStore.getState().setUserAndSession(mockUser, { ...mockSession, refresh_token: '' }); // No refresh token
+      const accessToken = await useAuthStore.getState().refreshAccessToken();
 
-        expect(accessToken).toBeNull();
-        const state = useAuthStore.getState();
-        expect(state.isAuthenticated).toBe(false); // Should be cleared
-        expect(fetch).not.toHaveBeenCalled();
+      expect(accessToken).toBeNull();
+      const state = useAuthStore.getState();
+      expect(state.isAuthenticated).toBe(false); // Should be cleared
+      expect(fetch).not.toHaveBeenCalled();
     });
 
     it('should handle concurrent refresh calls by waiting', async () => {
       const newAccessToken = 'concurrent-access-token';
-      (fetch as jest.Mock).mockImplementationOnce(() =>
-        new Promise(resolve =>
-          setTimeout(() => resolve({
-            ok: true,
-            json: async () => ({
-              user: mockUser,
-              session: { ...mockSession, access_token: newAccessToken },
-              profileExists: mockUser.profileExists
-            }),
-          }), 100) // First call is slow
-        )
+      (fetch as jest.Mock).mockImplementationOnce(
+        () =>
+          new Promise(
+            (resolve) =>
+              setTimeout(
+                () =>
+                  resolve({
+                    ok: true,
+                    json: async () => ({
+                      user: mockUser,
+                      session: { ...mockSession, access_token: newAccessToken },
+                      profileExists: mockUser.profileExists,
+                    }),
+                  }),
+                100,
+              ), // First call is slow
+          ),
       );
 
       useAuthStore.getState().setUserAndSession(mockUser, mockSession);
@@ -228,7 +248,6 @@ describe('useAuthStore', () => {
     });
   });
 });
-
 
 // Persistence tests that require jest.resetModules()
 // These are more complex and test the initial load behavior.

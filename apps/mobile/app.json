@@ -24,8 +24,6 @@
       "favicon": "./assets/Arden.png",
       "bundler": "metro"
     },
-    "plugins": [
-      "expo-router"
-    ]
+    "plugins": ["expo-router"]
   }
 }

@@ -24,7 +24,9 @@ export const ChatBox: FC<ChatBoxProps> = ({
   const colors = scheme === 'dark' ? darkColors : lightColors;
 
   return (
-    <View style={[styles.container, { borderColor: colors.border, backgroundColor: colors.surface }]}>
+    <View
+      style={[styles.container, { borderColor: colors.border, backgroundColor: colors.surface }]}
+    >
       <TextInput
         style={[styles.input, { color: colors.text1 }]}
         placeholder="Make a Note, Set a reminder, or ask a question..."
@@ -34,7 +36,12 @@ export const ChatBox: FC<ChatBoxProps> = ({
         multiline
       />
       <View style={styles.footer}>
-        <Pressable onPress={() => {/* open model selection */ }} style={styles.modelSelect}>
+        <Pressable
+          onPress={() => {
+            /* open model selection */
+          }}
+          style={styles.modelSelect}
+        >
           <Text style={[styles.modelText, { color: colors.text2 }]}>{selectedModel}</Text>
           <ChevronDown color={colors.text2} size={16} />
         </Pressable>
@@ -79,4 +86,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   sendButton: {},
-}); 
+});
