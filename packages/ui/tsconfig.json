@@ -8,4 +8,4 @@
   "include": ["./**/*.ts", "./**/*.tsx"],
   "exclude": ["node_modules", "dist"],
   "references": [{ "path": "../core" }]
-} 
+}

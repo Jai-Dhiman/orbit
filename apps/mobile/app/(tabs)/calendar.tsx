@@ -51,7 +51,7 @@ export default function CalendarScreen() {
 
       {/* Day Slots */}
       <ScrollView style={styles.slotsContainer}>
-        {hours.map(slot => (
+        {hours.map((slot) => (
           <View key={slot.label} style={styles.slot}>
             <Text style={styles.slotTime}>{slot.label}</Text>
             {slot.hour === 14 && (
@@ -69,7 +69,12 @@ export default function CalendarScreen() {
 const getStyles = (colors: typeof lightColors) =>
   StyleSheet.create({
     safeArea: { flex: 1, backgroundColor: colors.background },
-    header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 16 },
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: 16,
+    },
     navButton: { padding: 8 },
     monthText: { fontSize: 20, fontWeight: '500', color: colors.text1 },
     weekContainer: { height: 80 },
@@ -79,8 +84,15 @@ const getStyles = (colors: typeof lightColors) =>
     dayLabel: { fontSize: 12, color: colors.text2 },
     dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: colors.accent1, marginTop: 4 },
     slotsContainer: { flex: 1 },
-    slot: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, paddingHorizontal: 16, borderBottomWidth: 1, borderColor: colors.border },
+    slot: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+      borderBottomWidth: 1,
+      borderColor: colors.border,
+    },
     slotTime: { width: 50, color: colors.text2 },
     event: { flex: 1, backgroundColor: `${colors.accent1}33`, padding: 8, borderRadius: 4 },
     eventText: { color: colors.text1, fontWeight: '500' },
-  }); 
+  });

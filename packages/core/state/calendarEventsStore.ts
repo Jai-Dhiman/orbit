@@ -37,11 +37,13 @@ export const useCalendarEventsStore = create<CalendarEventsState>()(
     (set) => ({
       ...initialState,
       setSelectedEventId: (id) => set({ selectedEventId: id }),
-      setIsCreatingEvent: (isCreating) => set({ isCreatingEvent: isCreating, isEditingEvent: false, selectedEventId: null }),
+      setIsCreatingEvent: (isCreating) =>
+        set({ isCreatingEvent: isCreating, isEditingEvent: false, selectedEventId: null }),
       setIsEditingEvent: (isEditing) => set({ isEditingEvent: isEditing, isCreatingEvent: false }), // if isEditing is true, selectedEventId should already be set
       setViewMode: (mode) => set({ viewMode: mode }),
       setCurrentDate: (date) => set({ currentDate: date }),
-      setActiveFilters: (filters) => set((state) => ({ activeFilters: { ...state.activeFilters, ...filters } })),
+      setActiveFilters: (filters) =>
+        set((state) => ({ activeFilters: { ...state.activeFilters, ...filters } })),
       resetUIState: () => set(initialState),
     }),
     {
@@ -53,6 +55,6 @@ export const useCalendarEventsStore = create<CalendarEventsState>()(
         activeFilters: state.activeFilters,
         // We typically don't want to persist transient UI state like selectedEventId or isCreatingEvent
       }),
-    }
-  )
+    },
+  ),
 );

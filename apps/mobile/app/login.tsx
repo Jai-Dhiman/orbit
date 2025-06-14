@@ -3,8 +3,9 @@ import { View, Text, Button, StyleSheet, ActivityIndicator, Alert, Platform } fr
 import { useAuthStore } from 'packages/core/src/state/authStore';
 import * as WebBrowser from 'expo-web-browser';
 import { makeRedirectUri, useAuthRequest, Prompt } from 'expo-auth-session';
-import { useRouter } // Or useNavigation if not on Expo Router v3+
-from 'expo-router';
+import {
+  useRouter, // Or useNavigation if not on Expo Router v3+
+} from 'expo-router';
 import { colors } from 'packages/ui/styles/colors'; // Assuming colors are exported from here
 
 // Ensure web platform has a redirect URI for Expo Auth Session
@@ -13,7 +14,8 @@ WebBrowser.maybeCompleteAuthSession();
 const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:8787'; // Ensure this is set in your .env
 
 export default function LoginScreen() {
-  const { setUserAndSession, isLoading, setLoading, setError, isAuthenticated, user } = useAuthStore();
+  const { setUserAndSession, isLoading, setLoading, setError, isAuthenticated, user } =
+    useAuthStore();
   const router = useRouter();
 
   // State for each provider's auth request
@@ -29,7 +31,7 @@ export default function LoginScreen() {
     },
     {
       authorizationEndpoint: `${API_URL}/auth/oauth/google/url`, // Server endpoint to get the auth URL
-    }
+    },
   );
 
   // TODO: Add Apple Auth Request if needed, Apple Sign In has a different flow usually
@@ -86,7 +88,6 @@ export default function LoginScreen() {
           // } else {
           //   router.replace('/(tabs)');
           // }
-
         } catch (err: any) {
           console.error(`Login error (${provider}):`, err);
           setError(err.message || 'An unknown error occurred');
@@ -112,7 +113,8 @@ export default function LoginScreen() {
     // }
   }, [googleResponse, /*appleResponse,*/ setUserAndSession, setLoading, setError, router]);
 
-  if (isLoading || (isAuthenticated && user)) { // Show loading indicator also if redirecting
+  if (isLoading || (isAuthenticated && user)) {
+    // Show loading indicator also if redirecting
     return (
       <View style={styles.container}>
         <ActivityIndicator size="large" color={colors.primary} />
@@ -133,7 +135,7 @@ export default function LoginScreen() {
             if (googleAuthRequest) {
               googlePromptAsync();
             } else {
-              Alert.alert("Error", "Google login is not available at the moment.");
+              Alert.alert('Error', 'Google login is not available at the moment.');
             }
           }}
           disabled={!googleAuthRequest || isLoading}
@@ -195,7 +197,7 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 10,
     color: colors.primary,
-  }
+  },
 });
 
 // Important: For deep linking to work with Expo Go and development builds,

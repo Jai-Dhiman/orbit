@@ -31,23 +31,34 @@ export default function TabsLayout() {
           tabBarIndicatorStyle: { height: 0 },
           tabBarStyle: { height: 0 },
         }}
-        tabBar={props => (
+        tabBar={(props) => (
           <SafeAreaView edges={['bottom']} style={{ backgroundColor: colors.muted }}>
             <View style={[styles.bottomBar, { paddingTop: 8 }]}>
               <Pressable
                 onPress={() => props.navigation.navigate('notes')}
                 style={[
                   styles.iconButton,
-                  props.state.index === 0 && { backgroundColor: `${colors.accent1}33`, padding: 8, borderRadius: 16 },
+                  props.state.index === 0 && {
+                    backgroundColor: `${colors.accent1}33`,
+                    padding: 8,
+                    borderRadius: 16,
+                  },
                 ]}
               >
-                <FileText size={24} color={props.state.index === 0 ? colors.accent1 : colors.text1} />
+                <FileText
+                  size={24}
+                  color={props.state.index === 0 ? colors.accent1 : colors.text1}
+                />
               </Pressable>
               <Pressable
                 onPress={() => props.navigation.navigate('index')}
                 style={[
                   styles.iconButton,
-                  props.state.index === 1 && { backgroundColor: `${colors.accent1}33`, padding: 8, borderRadius: 16 },
+                  props.state.index === 1 && {
+                    backgroundColor: `${colors.accent1}33`,
+                    padding: 8,
+                    borderRadius: 16,
+                  },
                 ]}
               >
                 <Home size={24} color={props.state.index === 1 ? colors.accent1 : colors.text1} />
@@ -56,10 +67,17 @@ export default function TabsLayout() {
                 onPress={() => props.navigation.navigate('calendar')}
                 style={[
                   styles.iconButton,
-                  props.state.index === 2 && { backgroundColor: `${colors.accent1}33`, padding: 8, borderRadius: 16 },
+                  props.state.index === 2 && {
+                    backgroundColor: `${colors.accent1}33`,
+                    padding: 8,
+                    borderRadius: 16,
+                  },
                 ]}
               >
-                <Calendar size={24} color={props.state.index === 2 ? colors.accent1 : colors.text1} />
+                <Calendar
+                  size={24}
+                  color={props.state.index === 2 ? colors.accent1 : colors.text1}
+                />
               </Pressable>
             </View>
           </SafeAreaView>
@@ -67,13 +85,22 @@ export default function TabsLayout() {
       >
         <Tab.Screen name="notes" component={NotesScreen} options={{ tabBarShowLabel: false }} />
         <Tab.Screen name="index" component={HomeScreen} options={{ tabBarShowLabel: false }} />
-        <Tab.Screen name="calendar" component={CalendarScreen} options={{ tabBarShowLabel: false }} />
+        <Tab.Screen
+          name="calendar"
+          component={CalendarScreen}
+          options={{ tabBarShowLabel: false }}
+        />
       </Tab.Navigator>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  bottomBar: { height: 64, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' },
+  bottomBar: {
+    height: 64,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
   iconButton: { alignItems: 'center', width: 48 },
-}); 
+});

@@ -8,9 +8,7 @@
     "dev:mobile": "turbo run dev --filter=@arden/mobile",
     "format": "biome format --write .",
     "lint": "biome lint --write .",
-    "lint:ci": "biome lint --ci .",
     "check": "biome check --write .",
-    "check:ci": "biome check --ci .",
     "clean": "find . -name node_modules -o -name .turbo -o -name dist | xargs rm -rf"
   },
   "devDependencies": {

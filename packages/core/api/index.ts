@@ -1,3 +1,3 @@
 // Shared API client functions
-export * from './notes'
-export * from './client' 
+export * from './notes';
+export * from './client';

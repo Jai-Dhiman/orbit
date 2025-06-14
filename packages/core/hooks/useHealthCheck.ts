@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
-import { healthApi, handleApiError } from '../api/client'
+import { useQuery } from '@tanstack/react-query';
+import { healthApi, handleApiError } from '../api/client';
 
 export function useHealthCheck() {
   return useQuery({
@@ -16,7 +16,7 @@ export function useHealthCheck() {
       error: data.error,
     }),
     meta: {
-      errorMessage: 'Failed to check system health'
-    }
-  })
-} 
+      errorMessage: 'Failed to check system health',
+    },
+  });
+}

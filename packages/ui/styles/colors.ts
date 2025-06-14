@@ -26,4 +26,4 @@ export const darkColors = {
   success: '#22C55E',
   warning: '#FACC15',
   error: '#EF4444',
-}; 
+};

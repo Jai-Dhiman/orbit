@@ -22,7 +22,9 @@ const client = hc<AppType>(BASE_URL);
 
 // Function definitions
 
-export const getCalendarEvents = async (params?: CalendarEventQueryParams): Promise<CalendarEvent[]> => {
+export const getCalendarEvents = async (
+  params?: CalendarEventQueryParams,
+): Promise<CalendarEvent[]> => {
   // Assuming the server returns an array of events directly, matching CalendarEvent[]
   // If it returns { events: CalendarEvent[] }, then use Promise<CalendarEventsResponse>
   // and adapt the return: `return (await res.json()).events;`
@@ -40,14 +42,19 @@ export const getCalendarEvent = async (id: string): Promise<CalendarEvent> => {
   return await res.json();
 };
 
-export const createCalendarEvent = async (input: CreateCalendarEventInput): Promise<CalendarEvent> => {
+export const createCalendarEvent = async (
+  input: CreateCalendarEventInput,
+): Promise<CalendarEvent> => {
   // Assuming server returns the created event object directly
   const res = await client.calendar.events.$post({ json: input });
   if (!res.ok) throw new Error(`Failed to create event: ${res.status}`);
   return await res.json();
 };
 
-export const updateCalendarEvent = async (id: string, input: UpdateCalendarEventInput): Promise<CalendarEvent> => {
+export const updateCalendarEvent = async (
+  id: string,
+  input: UpdateCalendarEventInput,
+): Promise<CalendarEvent> => {
   // Assuming server returns the updated event object directly
   const res = await client.calendar.events[':id'].$put({ param: { id }, json: input });
   if (!res.ok) throw new Error(`Failed to update event ${id}: ${res.status}`);
